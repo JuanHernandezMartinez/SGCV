@@ -13,6 +13,6 @@ export class AppComponent {
   amix = {
     nombres: 'chuma',
     apellidos: 'ayala',
-    edad: 20,
+    edad: 19,
   };
 }
