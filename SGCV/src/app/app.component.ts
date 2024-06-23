@@ -9,7 +9,7 @@ import {MatCardModule, MatCardHeader} from '@angular/material/card';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'SGCV';
+  title = 'Hola amix';
   amix = {
     nombres: 'chuma',
     apellidos: 'ayala',
