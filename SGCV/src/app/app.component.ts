@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'Hola amix';
   amix = {
     nombres: 'chuma',
-    apellidos: 'ayala',
+    apellidos: 'Arzola Hernandez',
     edad: 19,
   };
 }
