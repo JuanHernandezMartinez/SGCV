@@ -1,0 +1,34 @@
+<div class="container">
+  <mat-card>
+    <div>
+      <form class="datos" (submit)="signIn()">
+        <img src="assets/logoSGCV.png" alt="logo del proyecto" width="256px" />
+        <mat-form-field>
+          <mat-label>Usuario</mat-label>
+          <input
+            matInput
+            type="text"
+            id="usuario"
+            name="usuario"
+            [(ngModel)]="usuario"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+          />
+        </mat-form-field>
+        <div class="text-end">
+          <button class="btn btn-primary singin" (click)="signIn()">
+            Iniciar sesión
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</div>

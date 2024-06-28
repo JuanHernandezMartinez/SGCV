@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-self: center;
+  width: 50vw;
+  margin-top: 10vh;
+  
+}
+.datos {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  justify-self: center;
+  margin: 20px;
+}
+
+.singin{
+    width: max-content;
+}
