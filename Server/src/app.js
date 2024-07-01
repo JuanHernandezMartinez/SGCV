@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { guardarTemperatura } from "./controllers/temperaturas.controller";
 
 const app = express();
 
@@ -12,7 +13,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  console.log(req.body);
+  guardarTemperatura(req.body)
   return res.sendStatus(200);
 });
 
