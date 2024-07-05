@@ -5,7 +5,11 @@
   justify-self: center;
   width: 50vw;
   margin-top: 10vh;
-  
+}
+
+mat-card{
+  background: rgb(255,255,255);
+  background: linear-gradient(356deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.70640756302521) 68%); 
 }
 .datos {
   display: flex;
