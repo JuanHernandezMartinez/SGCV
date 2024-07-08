@@ -12,4 +12,23 @@ SGCV$ npm i -g @angular/cli
 
 PARA CORRER EL SERVIDOR DE DESARROLLO
 
-SGCV$ ng s
+SGCV$ ng s --port 1500
+
+SGCV$ ng g c inicio/inicio
+
+ng g s inicio/inicio
+
+npm i
+
+cd .\Server\
+
+
+npm i mongoose
+
+npm run dev
+
+cd ..
+
+npm install primeng
+ng S
+ng g s inicio/service/inicio --skip-test
