@@ -14,9 +14,9 @@ PARA CORRER EL SERVIDOR DE DESARROLLO
 
 SGCV$ ng s
 
-SGCV$ ng s --port 1500
+Client$ ng s --port 1500
 
-SGCV$ ng g c inicio/inicio
+ng g c inicio/inicio
 
 ng g s inicio/inicio
 
