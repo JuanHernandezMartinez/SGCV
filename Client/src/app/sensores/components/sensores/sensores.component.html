@@ -1,1 +1,10 @@
-<app-volver-button></app-volver-button>
+<div>
+  <app-volver-button></app-volver-button>
+
+  <hr />
+  <div style="display: grid; grid-template-columns: 33% 33% 33%">
+    @for (nombre of nombres; track $index) {
+    <app-sensores-card [nombre]="nombre"></app-sensores-card>
+    }
+  </div>
+</div>
