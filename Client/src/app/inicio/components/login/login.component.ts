@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import Swal from 'sweetalert2';
 import { ButtonModule } from 'primeng/button';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,7 @@ export class LoginComponent {
   usuario!: string;
   password!: string;
 
-  constructor(private router:Router){}
+  constructor(private router: Router) {}
 
   public signIn(): void {
     if (this.usuario && this.password) {
@@ -33,8 +33,8 @@ export class LoginComponent {
         icon: 'success',
         title: 'Sesión iniciada',
         text: `bienvenido ${this.usuario}...`,
-      }).then(()=>{
-        this.router.navigateByUrl('/home')
+      }).then(() => {
+        this.router.navigateByUrl('/home');
       });
     } else if (!this.usuario || !this.password) {
       Swal.fire({

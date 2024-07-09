@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="image-container"></div>
+  <div class="menu-container">
+    <div class="salir-container">
+      <p-button
+        label="Salir"
+        [raised]="true"
+        severity="danger"
+        (onClick)="salir()"
+      />
+    </div>
+    <div class="buttons-container">
+      <p-button label="Sensores" [raised]="true" (onClick)="sensores()" />
+      <p-button label="Graficas" [raised]="true" (onClick)="graficas()" />
+      <p-button label="Ventilación" [raised]="true" (onClick)="ventilacion()" />
+    </div>
+  </div>
+</div>

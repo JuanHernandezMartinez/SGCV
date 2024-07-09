@@ -2,9 +2,15 @@
   <div class="container">
     <mat-card>
       <div>
-        <form class="datos" (submit)="signIn()">
-          <div style="text-align: center;"><h3>Bienvenido A SGCV</h3></div>
-          <div style="text-align: center;"><img src="assets/logoSGCV.png" alt="logo del proyecto" width="256px"></div>
+        <form class="datos">
+          <div style="text-align: center"><h3>Bienvenido A SGCV</h3></div>
+          <div style="text-align: center">
+            <img
+              src="assets/logoSGCV.png"
+              alt="logo del proyecto"
+              width="256px"
+            />
+          </div>
           <mat-form-field>
             <mat-label>Usuario</mat-label>
             <input
@@ -25,17 +31,16 @@
               [(ngModel)]="password"
             />
           </mat-form-field>
-          <div class="text-end">
-            <button
-              pButton
-              pRipple
+          <div style="text-align: end">
+            <p-button
               label="Entrar"
-              class="p-button-success"
-            ></button>
+              severity="primary"
+              [raised]="true"
+              (onClick)="signIn()"
+            />
           </div>
         </form>
       </div>
     </mat-card>
   </div>
-  
 </div>

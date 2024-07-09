@@ -1,0 +1,40 @@
+.root {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-image: url("../../../../../public/assets/Background.jpg");
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10vh auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+mat-card {
+  background: rgb(101, 253, 45);
+  background: linear-gradient(
+    0deg,
+    rgba(101, 253, 45, 0.5074404761904762) 0%,
+    rgba(34, 193, 195, 0.4906337535014006) 59%
+  );
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.datos {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  justify-self: center;
+  margin: 20px;
+}
+
+
+

@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 100%;
+  height: 100%;
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  background-image: url("../../../../../public/assets/Background.jpg");
+}
+.salir-container {
+  text-align: end;
+}
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons-container p-button {
+  margin: 4%;
+}
