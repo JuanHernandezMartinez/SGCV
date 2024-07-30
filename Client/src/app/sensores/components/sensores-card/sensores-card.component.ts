@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 
 
@@ -10,8 +10,12 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './sensores-card.component.css'
 })
 export class SensoresCardComponent {
-
   @Input() public nombre!:String
+
+
+  public algo():void{
+    console.log("clicked")
+  }
 
   
 
