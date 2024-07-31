@@ -1,1 +1,27 @@
-<app-volver-button></app-volver-button>
+<div style="text-align: end; padding-right: 3%; padding-top: 3%">
+  <app-volver-button></app-volver-button>
+</div>
+
+
+<div>
+    <mat-form-field class="example-full-width" style="padding-left: 3%">
+        <mat-label>Buscar</mat-label>
+        <input matInput placeholder="ventilador">
+      </mat-form-field>
+
+      <div style="display: flex; justify-content: space-between; padding: 0 10% 0 10% ;">
+        <p>Seccion/Lugar</p>
+        <p>Encender/Apagar</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; padding: 0 10% 0 10% ;">
+        @for (item of ventiladores; track $index) {
+
+            <div style="display: grid;">
+                    <p>{{item}}</p>
+                <p-inputSwitch/>
+            </div>
+
+        }
+      </div>
+</div>

@@ -1,1 +1,21 @@
-<app-volver-button></app-volver-button>
+<div style="margin-top: 2%; margin-left: 2%; text-align: end;">
+    <app-volver-button/>
+</div>
+
+
+<div class="container">
+    <div>
+        <mat-selection-list #shoes>
+            @for (shoe of typesOfShoes; track shoe) {
+              <mat-list-option>{{shoe}}</mat-list-option>
+            }
+          </mat-selection-list>
+          
+          <p>
+            Options selected: {{shoes.selectedOptions.selected.length}}
+          </p>
+    </div>
+    <div>
+      <p-chart type="line" [data]="data" [options]="options" />
+    </div>
+</div>

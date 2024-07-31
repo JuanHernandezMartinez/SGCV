@@ -6,8 +6,18 @@ justify-content: space-between;
 }
 
 .circle{
-    width: 10%;
-    background-color: black;
+    display: flex;
+    width: 20%;
+    height: 30%;
+    background-color: grey;
     color: white;
-    border-radius: 50%;
+    border-radius: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    font-size: larger;
+    position: fixed;
+    bottom: 0;
+    left: 15%;
 }
