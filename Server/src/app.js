@@ -1,9 +1,12 @@
 import express from "express";
 import cors from "cors";
-import { guardarTemperatura } from "./controllers/temperaturas.controller";
+import { guardarTemperatura } from "./controllers/temperaturas.controller.js";
+import {Server} from 'socket.io'
+import http from 'http'
 
 const app = express();
-
+const httpServer= http.createServer(app)
+export const io=new Server(httpServer,{cors:'*'})
 app.use(cors());
 app.use(express.json());
 
@@ -17,4 +20,6 @@ app.post("/", (req, res) => {
   return res.sendStatus(200);
 });
 
-export default app;
+
+
+export default httpServer;
