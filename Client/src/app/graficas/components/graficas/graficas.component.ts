@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { VolverButtonComponent } from '../../../shared/components/volver-button/volver-button.component';
 import { ChartModule } from 'primeng/chart';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
+import { GraficasService } from '../../services/graficas.service';
 @Component({
   selector: 'app-graficas',
   standalone: true,
@@ -10,37 +11,32 @@ import {MatListModule} from '@angular/material/list';
   styleUrl: './graficas.component.css',
 })
 export class GraficasComponent implements OnInit {
+  graficaService = inject(GraficasService);
   options: any;
-  data: any;
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+  mediciones: any;
+  typesOfShoes: string[] = [
+    'Boots',
+    'Clogs',
+    'Loafers',
+    'Moccasins',
+    'Sneakers',
+  ];
+  data: any = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [],
+  };
 
   ngOnInit(): void {
+    this.graficaService.mediciones$.subscribe((mediciones) => {
+      console.log(mediciones)
+      this.data.datasets= mediciones;
+    });
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue(
       '--text-color-secondary'
     );
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-    this.data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'First Dataset',
-          data: [1,2,3,4,6,7],
-          fill: false,
-          borderColor: documentStyle.getPropertyValue('--blue-500'),
-          tension: 0.4,
-        },
-        {
-          label: 'Second Dataset',
-          data: [28, 48, 40, 19, 86, 27, 90],
-          fill: false,
-          borderColor: documentStyle.getPropertyValue('--pink-500'),
-          tension: 0.4,
-        },
-      ],
-    };
 
     this.options = {
       maintainAspectRatio: false,
