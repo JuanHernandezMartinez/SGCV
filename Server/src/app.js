@@ -23,21 +23,21 @@ app.post("/", (req, res) => {
 const temperaturas = [
   {
     label: "Sensor 0",
-    data: [10],
+    data: [36],
     fill: false,
     borderColor: "yellow",
     tension: 0.4,
   },
   {
     label: "Sensor 1",
-    data: [20],
+    data: [35],
     fill: false,
     borderColor: "red",
     tension: 0.4,
   },
   {
     label: "Sensor 2",
-    data: [30],
+    data: [34],
     fill: false,
     borderColor: "blue",
     tension: 0.4,
@@ -45,14 +45,22 @@ const temperaturas = [
 ];
 
 io.on("connection", (socket) => {
-  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-  let sensor = `Sensor ${randomInt(3)}`;
-  let color = (sensor === 0 ? "yellow" : (sensor === 1 ? "red" : "blue"));
-  console.log(color)
-  let temperatura = temperaturas.find(t => t.label === sensor)
-  temperatura.data.push(randomInt(100))
-  console.log(temperatura)
-  socket.emit("temperaturas", temperaturas);
+  // console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+  // let sensor = `Sensor ${randomInt(3)}`;
+  // let color = (sensor === 0 ? "yellow" : (sensor === 1 ? "red" : "blue"));
+  // console.log(color)
+  // let temperatura = temperaturas.find(t => t.label === sensor)
+  // temperatura.data.push(randomInt(30,40))
+  // console.log(temperatura)
+  // socket.emit("temperaturas", temperaturas);
+  // socket.broadcast.emit("temperaturas", temperaturas);
+
+  const data = {
+    value: Math.floor(Math.random() * 100),
+    label: new Date().toLocaleTimeString()
+  };
+  socket.emit('temperaturas', data);
+
 });
 
 export default httpServer;

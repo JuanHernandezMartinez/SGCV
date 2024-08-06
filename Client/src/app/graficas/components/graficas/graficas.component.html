@@ -1,4 +1,4 @@
-<div style="margin-top: 2%; margin-left: 2%; text-align: end;">
+<div style="margin-top: 2%; margin-right: 2%; text-align: end;">
     <app-volver-button/>
 </div>
 
@@ -10,12 +10,23 @@
               <mat-list-option>{{shoe}}</mat-list-option>
             }
           </mat-selection-list>
-          
-          <p>
-            Options selected: {{shoes.selectedOptions.selected.length}}
-          </p>
+        
     </div>
     <div>
-      <p-chart type="line" [data]="data" [options]="options" />
+      <div style="display: block;">
+        <canvas baseChart width="400" height="400"
+          [type]="'line'"
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [legend]="lineChartLegend">
+        </canvas>
+      </div>
+      <div style="display: block;">
+        <canvas baseChart
+                [data]="lineChartData"
+                [options]="lineChartOptions"
+                chartType="line">
+        </canvas>
+      </div>      
     </div>
 </div>

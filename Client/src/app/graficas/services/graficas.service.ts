@@ -6,22 +6,20 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class GraficasService {
   socket = io('http://localhost:4000');
-  private areaDataSubject = new BehaviorSubject<any>([]);
-  mediciones$: Observable<any> = this.areaDataSubject.asObservable();
+  private medicionesDataSubject = new BehaviorSubject<any>([]);
+  mediciones$: Observable<any> = this.medicionesDataSubject.asObservable();
 
   constructor() {
     this.socket.on('connection', () => {
-      console.log(this.socket.id); // x8WIv7-mJelg7on_ALbx
+      console.log("Sockets conectados")
     });
 
-    this.socket.on('temperaturas', (temperaturas) => {
-      console.log("nueva temperatura")
-      this.setTemperaturas(temperaturas);
+    this.socket.on('temperaturas', (mediciones) => {
+      this.setTemperaturas(mediciones);
     });
   }
 
   private setTemperaturas(mediciones: any): void {
-    console.log(mediciones)
-    this.areaDataSubject.next(mediciones);
+    this.medicionesDataSubject.next(mediciones);
   }
 }

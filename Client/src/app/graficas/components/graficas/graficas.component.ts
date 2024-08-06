@@ -1,73 +1,54 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { VolverButtonComponent } from '../../../shared/components/volver-button/volver-button.component';
-import { ChartModule } from 'primeng/chart';
 import { MatListModule } from '@angular/material/list';
 import { GraficasService } from '../../services/graficas.service';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartData, ChartOptions } from 'chart.js';
 @Component({
   selector: 'app-graficas',
   standalone: true,
-  imports: [VolverButtonComponent, ChartModule, MatListModule],
+  imports: [VolverButtonComponent, MatListModule, BaseChartDirective],
   templateUrl: './graficas.component.html',
   styleUrl: './graficas.component.css',
 })
 export class GraficasComponent implements OnInit {
   graficaService = inject(GraficasService);
-  options: any;
-  mediciones: any;
   typesOfShoes: string[] = [
-    'Boots',
-    'Clogs',
-    'Loafers',
-    'Moccasins',
-    'Sneakers',
+    'Sensor 1',
+    'Sensor 2',
+    'Sensor 3',
+    'Sensor 4',
+    'Sensor 5',
   ];
-  data: any = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [],
+
+  title = 'ng2-charts-demo';
+
+  public lineChartData: ChartData<'line'> = {
+    datasets: [
+      {
+        data: [],
+        label: 'Real-time data',
+        borderColor: '#42A5F5',
+        backgroundColor: 'rgba(66,165,245,0.2)',
+      }
+    ],
+    labels: []
   };
+
+  public lineChartOptions: ChartOptions<'line'> = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+
+  public lineChartLegend = true;
 
   ngOnInit(): void {
     this.graficaService.mediciones$.subscribe((mediciones) => {
-      console.log(mediciones)
-      this.data.datasets= mediciones;
+      this.updateChart(mediciones);
     });
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue(
-      '--text-color-secondary'
-    );
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-    this.options = {
-      maintainAspectRatio: false,
-      aspectRatio: 0.6,
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor,
-          },
-        },
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: textColorSecondary,
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false,
-          },
-        },
-        y: {
-          ticks: {
-            color: textColorSecondary,
-          },
-          grid: {
-            color: surfaceBorder,
-            drawBorder: false,
-          },
-        },
-      },
-    };
+  }
+  updateChart(data: { value: number, label: string }) {
+    this.lineChartData.datasets[0].data.push(data.value);
+    this.lineChartData.labels?.push(data.label);
   }
 }
