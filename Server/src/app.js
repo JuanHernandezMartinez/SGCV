@@ -26,21 +26,21 @@ const temperaturas = [
     data: [36],
     fill: false,
     borderColor: "yellow",
-    tension: 0.4,
+    tension: 0.5,
   },
   {
     label: "Sensor 1",
     data: [35],
     fill: false,
     borderColor: "red",
-    tension: 0.4,
+    tension: 0.5,
   },
   {
     label: "Sensor 2",
-    data: [34],
+    data: [33],
     fill: false,
     borderColor: "blue",
-    tension: 0.4,
+    tension: 0.5,
   },
 ];
 
@@ -54,13 +54,14 @@ io.on("connection", (socket) => {
   // console.log(temperatura)
   // socket.emit("temperaturas", temperaturas);
   // socket.broadcast.emit("temperaturas", temperaturas);
+  let sensor = randomInt(3)
+  let temperatura = randomInt(32, 40)
+  let findSensor = temperaturas.find(s => s.label === `Sensor ${sensor}`)
+  console.log("Sensor encontrado: ", findSensor)
+  findSensor.data.push(temperatura)
 
-  const data = {
-    value: Math.floor(Math.random() * 100),
-    label: new Date().toLocaleTimeString()
-  };
-  socket.emit('temperaturas', data);
-
+  socket.emit('temperaturas', temperaturas);
+  socket.broadcast.emit('temperaturas', temperaturas);
 });
 
 export default httpServer;

@@ -1,32 +1,26 @@
 <div style="margin-top: 2%; margin-right: 2%; text-align: end;">
-    <app-volver-button/>
+  <app-volver-button />
 </div>
 
 
 <div class="container">
-    <div>
-        <mat-selection-list #shoes>
-            @for (shoe of typesOfShoes; track shoe) {
-              <mat-list-option>{{shoe}}</mat-list-option>
-            }
-          </mat-selection-list>
-        
+  <div>
+    <mat-selection-list #shoes>
+      @for (shoe of typesOfShoes; track shoe) {
+      <mat-list-option>{{shoe}}</mat-list-option>
+      }
+    </mat-selection-list>
+
+  </div>
+  <div>
+    <div style="display: block;">
+      <canvas baseChart width="400" height="400"
+        [type]="'line'"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend">
+      </canvas>
     </div>
-    <div>
-      <div style="display: block;">
-        <canvas baseChart width="400" height="400"
-          [type]="'line'"
-          [data]="lineChartData"
-          [options]="lineChartOptions"
-          [legend]="lineChartLegend">
-        </canvas>
-      </div>
-      <div style="display: block;">
-        <canvas baseChart
-                [data]="lineChartData"
-                [options]="lineChartOptions"
-                chartType="line">
-        </canvas>
-      </div>      
-    </div>
+    
+  </div>
 </div>

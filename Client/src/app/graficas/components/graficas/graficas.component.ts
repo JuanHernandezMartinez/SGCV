@@ -1,18 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VolverButtonComponent } from '../../../shared/components/volver-button/volver-button.component';
 import { MatListModule } from '@angular/material/list';
-import { GraficasService } from '../../services/graficas.service';
+import { ChartConfiguration, ChartOptions } from "chart.js";
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartData, ChartOptions } from 'chart.js';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { io } from 'socket.io-client';
+// https://stackblitz.com/edit/ng2-charts-dynamic?file=src%2Fapp%2Fapp.component.html,src%2Fapp%2Fapp.component.ts,src%2Fapp%2Fapp.module.ts,src%2Fapp%2Fhello.component.html,src%2Fapp%2Fhello.component.ts,src%2Fapp%2Fdata.service.ts
+
 @Component({
   selector: 'app-graficas',
   standalone: true,
   imports: [VolverButtonComponent, MatListModule, BaseChartDirective],
+  providers: [provideCharts(withDefaultRegisterables())],
   templateUrl: './graficas.component.html',
   styleUrl: './graficas.component.css',
 })
 export class GraficasComponent implements OnInit {
-  graficaService = inject(GraficasService);
+  private socket = io('http://localhost:4000');
   typesOfShoes: string[] = [
     'Sensor 1',
     'Sensor 2',
@@ -20,35 +24,39 @@ export class GraficasComponent implements OnInit {
     'Sensor 4',
     'Sensor 5',
   ];
-
-  title = 'ng2-charts-demo';
-
-  public lineChartData: ChartData<'line'> = {
+  public lineChartData: ChartConfiguration<'line'>['data'] = {
+    labels: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July'
+    ],
     datasets: [
       {
-        data: [],
-        label: 'Real-time data',
-        borderColor: '#42A5F5',
-        backgroundColor: 'rgba(66,165,245,0.2)',
+        data: [ 65, 59, 80, 81, 56, 55, 40 ],
+        label: 'Series A',
+        fill: true,
+        tension: 0.5,
+        borderColor: 'black',
+        backgroundColor: 'rgba(255,0,0,0.3)'
       }
-    ],
-    labels: []
+    ]
   };
-
   public lineChartOptions: ChartOptions<'line'> = {
-    responsive: true,
-    maintainAspectRatio: false
+    responsive: false
   };
-
   public lineChartLegend = true;
 
-  ngOnInit(): void {
-    this.graficaService.mediciones$.subscribe((mediciones) => {
-      this.updateChart(mediciones);
+  constructor() {
+    console.log("constructor")
+    this.socket.on('connection', () => {
+      console.log("Sockets conectados")
     });
   }
-  updateChart(data: { value: number, label: string }) {
-    this.lineChartData.datasets[0].data.push(data.value);
-    this.lineChartData.labels?.push(data.label);
+
+  ngOnInit(): void {
   }
 }
