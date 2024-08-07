@@ -3,8 +3,8 @@
 #include <WebServer.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "";
-const char* password = "";
+const char* ssid = "wifiesp";
+const char* password = "12345678";
 
 WebServer server(80);
 
@@ -15,14 +15,13 @@ void handleRoot() {
 void makeApiRequest() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    http.begin("http://192.168.0.8:4000/");
+    http.begin("http://192.168.37.173:4000/");
 
     http.addHeader("Content-Type", "application/json");
 
     StaticJsonDocument<200> doc;
-    doc["sensor"] = "ESP32";
-    doc["temperature"] = 24.5;
-    doc["humidity"] = 70;
+    doc["sensor"] = "Sensor" + random(0,3);
+    doc["temperature"] = random(30,41);
     String jsonString;
     serializeJson(doc, jsonString);
 
