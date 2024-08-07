@@ -16,7 +16,7 @@ import { io } from 'socket.io-client';
   styleUrl: './graficas.component.css',
 })
 export class GraficasComponent implements OnInit {
-  private socket = io('http://localhost:4000');
+  // private socket = io('http://localhost:4000');
   typesOfShoes: string[] = [
     'Sensor 1',
     'Sensor 2',
@@ -51,10 +51,10 @@ export class GraficasComponent implements OnInit {
   public lineChartLegend = true;
 
   constructor() {
-    console.log("constructor")
-    this.socket.on('connection', () => {
-      console.log("Sockets conectados")
-    });
+    // console.log("constructor")
+    // this.socket.on('connection', () => {
+    //   console.log("Sockets conectados")
+    // });
   }
 
   ngOnInit(): void {

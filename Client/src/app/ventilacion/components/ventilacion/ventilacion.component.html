@@ -1,27 +1,31 @@
-<div style="text-align: end; padding-right: 3%; padding-top: 3%">
-  <app-volver-button></app-volver-button>
-</div>
+<div class="root">
+  <div style="text-align: end; padding-right: 3%; padding-top: 3%">
+    <app-volver-button></app-volver-button>
+  </div>
 
-
-<div>
+  <div>
     <mat-form-field class="example-full-width" style="padding-left: 3%">
-        <mat-label>Buscar</mat-label>
-        <input matInput placeholder="ventilador">
-      </mat-form-field>
+      <mat-label>Buscar ventilación</mat-label>
+      <input matInput placeholder="ventilador" />
+    </mat-form-field>
 
-      <div style="display: flex; justify-content: space-between; padding: 0 10% 0 10% ;">
-        <p>Seccion/Lugar</p>
-        <p>Encender/Apagar</p>
+    <div class="container">
+      <p>Seccion/Lugar</p>
+      <p>Apagado - Encendido</p>
+    </div>
+
+    <div class="container-ventilador">
+      @for (item of ventiladores; track $index) {
+      <div>
+        <mat-card class="ventilador-card">
+          <div class="ventilador">
+            <p>{{ item }}</p>
+            <p-inputSwitch />
+          </div>
+        </mat-card>
       </div>
 
-      <div style="display: flex; justify-content: space-between; padding: 0 10% 0 10% ;">
-        @for (item of ventiladores; track $index) {
-
-            <div style="display: grid;">
-                    <p>{{item}}</p>
-                <p-inputSwitch/>
-            </div>
-
-        }
-      </div>
+      }
+    </div>
+  </div>
 </div>

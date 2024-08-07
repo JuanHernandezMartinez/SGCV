@@ -1,19 +1,21 @@
-<div style="margin-top: 1%; margin-bottom: 1%;">
-  <app-volver-button />
-</div>
-
-<div style="margin-left: 3%; margin-right: 3%;">
-  <div class="cards-container">
-    @for (nombre of nombres; track $index) {
-    <app-sensores-card [nombre]="nombre"></app-sensores-card>
-    }
+<div class="root">
+  <div style="margin-top: 1%; margin-left: 1%">
+    <app-volver-button />
   </div>
-</div>
 
-<div class="circle">
-  <div >
-    <p>Temperatura</p>
-    <p>promedio</p>
-    <p>{{temperatura}}°C</p>
+  <div style="margin-left: 3%; margin-right: 3%">
+    <div class="cards-container">
+      @for (nombre of nombres; track $index) {
+      <app-sensores-card [nombre]="nombre"></app-sensores-card>
+      }
+    </div>
+  </div>
+
+  <div class="circle">
+    <div>
+      <p>Temperatura</p>
+      <p>promedio</p>
+      <p>{{ temperatura }}°C</p>
+    </div>
   </div>
 </div>
