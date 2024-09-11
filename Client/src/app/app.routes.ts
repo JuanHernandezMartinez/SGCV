@@ -20,7 +20,7 @@ export const routes: Routes = [
   },
   {
     path: 'graficas',
-    component: GraficasComponent,
+    loadChildren:()=>import("./graficas/graficas.module").then(m=>m.GraficasModule),
   },
   {
     path: 'ventilacion',

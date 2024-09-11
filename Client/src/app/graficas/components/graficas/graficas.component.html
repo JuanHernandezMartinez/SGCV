@@ -1,26 +1,28 @@
-<div style="margin-top: 2%; margin-right: 2%; text-align: end;">
+<!-- <div style="margin-top: 2%; margin-right: 2%; text-align: end;">
   <app-volver-button />
-</div>
-
+</div> -->
 
 <div class="container">
+  <div></div>
   <div>
-    <mat-selection-list #shoes>
-      @for (shoe of typesOfShoes; track shoe) {
-      <mat-list-option>{{shoe}}</mat-list-option>
-      }
-    </mat-selection-list>
-
-  </div>
-  <div>
-    <div style="display: block;">
-      <canvas baseChart width="400" height="400"
-        [type]="'line'"
-        [data]="lineChartData"
-        [options]="lineChartOptions"
-        [legend]="lineChartLegend">
-      </canvas>
+    <div style="display: block">
+      <ngx-charts-line-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [legend]="legend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [timeline]="timeline"
+        [results]="multi"
+        (select)="onSelect($event)"
+        (activate)="onActivate($event)"
+        (deactivate)="onDeactivate($event)"
+      >
+      </ngx-charts-line-chart>
     </div>
-    
   </div>
 </div>

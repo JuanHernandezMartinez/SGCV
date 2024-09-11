@@ -1,36 +1,11 @@
 
-SIEMPRE QUE SE DESCARGA EL PROYECTO
-SE DEBEN CORRER LOS SIGUIENTES COMANDOS
+#SIEMPRE QUE SE DESCARGA EL PROYECTO SE DEBEN CORRER LOS SIGUIENTES COMANDOS
+SGCV$ cd Client
+Client$ pnpm install
+#EN CASO DE NO TENER INSTALADO ANGULAR/CLI 
+Client$ npm i -g @angular/cli
 
-
-SGCV$ cd SGCV
-SGCV$ npm install
-
-
-EN CASO DE NO TENER INSTALADO ANGULAR/CLI
-SGCV$ npm i -g @angular/cli
-
-PARA CORRER EL SERVIDOR DE DESARROLLO
-
-SGCV$ ng s
-
-Client$ ng s --port 1500
-
-ng g c inicio/inicio
-
-ng g s inicio/inicio
-
-npm i
-
-cd .\Server\
-
-
-npm i mongoose
-
-npm run dev
-
-cd ..
-
-npm install primeng
-ng S
-ng g s inicio/service/inicio --skip-test
+#PARA CORRER EL SERVIDOR DE DESARROLLO
+SGCV$ cd .\Server\
+Server$ pnpm install
+Server$ pnpm run dev
