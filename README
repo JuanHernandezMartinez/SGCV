@@ -5,6 +5,8 @@ Client$ pnpm install
 #EN CASO DE NO TENER INSTALADO ANGULAR/CLI 
 Client$ npm i -g @angular/cli
 
+Client$ ng s
+
 #PARA CORRER EL SERVIDOR DE DESARROLLO
 SGCV$ cd .\Server\
 Server$ pnpm install
