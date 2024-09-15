@@ -1,5 +1,7 @@
 
 # Compiled output
+node_modules/
+./node_modules
 /dist
 /tmp
 /out-tsc
