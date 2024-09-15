@@ -4,7 +4,7 @@ import { guardarTemperatura } from "./controllers/temperaturas.controller.js";
 import { Server } from "socket.io";
 import http from "http";
 import { randomInt } from "crypto";
-import temperaturasRoutes from './routes/Temperaturas.routes.js'
+import temperaturasRoutes from "./routes/Temperaturas.routes.js";
 const app = express();
 const httpServer = http.createServer(app);
 export const io = new Server(httpServer, { cors: "*" });
@@ -12,52 +12,95 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  console.log("entro")
-  console.log(req)  
+  console.log("entro");
+  console.log(req);
   return res.send("hola mundo");
 });
 
 app.post("/", (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   return res.sendStatus(200);
 });
 
-app.use(temperaturasRoutes)
+app.use(temperaturasRoutes);
 
-
-const temperaturas = [
+var temperaturas = [
   {
-    label: "Sensor 0",
-    data: [36],
-    fill: false,
-    borderColor: "yellow",
-    tension: 0.5,
+    name: "sensor 1",
+    series: [
+      {
+        name: "12:53:00",
+        value: 30,
+      },
+      {
+        name: "12:54:00",
+        value: 34,
+      },
+      {
+        name: "12:55:00",
+        value: 38,
+      },
+    ],
   },
   {
-    label: "Sensor 1",
-    data: [35],
-    fill: false,
-    borderColor: "red",
-    tension: 0.5,
+    name: "sensor 2",
+    series: [
+      {
+        name: "12:53:00",
+        value: 28,
+      },
+      {
+        name: "12:54:00",
+        value: 32,
+      },
+      {
+        name: "12:55:00",
+        value: 35,
+      },
+    ],
   },
   {
-    label: "Sensor 2",
-    data: [33],
-    fill: false,
-    borderColor: "blue",
-    tension: 0.5,
+    name: "sensor 3",
+    series: [
+      {
+        name: "12:53:00",
+        value: 31,
+      },
+      {
+        name: "12:54:00",
+        value: 34,
+      },
+      {
+        name: "12:55:00",
+        value: 37,
+      },
+    ],
   },
 ];
+var minuto = 55;
+var sensor = 0;
 
 io.on("connection", (socket) => {
-  let sensor = randomInt(3)
-  let temperatura = randomInt(32, 40)
-  let findSensor = temperaturas.find(s => s.label === `Sensor ${sensor}`)
-  console.log("Sensor encontrado: ", findSensor)
-  findSensor.data.push(temperatura)
-
-  socket.emit('temperaturas', temperaturas);
-  socket.broadcast.emit('temperaturas', temperaturas);
+  setInterval(() => {
+    var startDate = "12:55:00";
+    var [first, second, third] = startDate.split(":");
+    var newDate = first + ":" + (minuto += 5).toString() + ":" + third;
+    console.log(newDate);
+    var randomNumber = randomInt(3);
+    var randomSensor = temperaturas[sensor];
+    var newSerie = {
+      name: newDate,
+      value: randomInt(28, 40),
+    };
+    sensor++;
+    if (sensor === 3) {
+      sensor = 0;
+    }
+    console.log(newSerie);
+    randomSensor.series.push(newSerie);
+    socket.emit("temperaturas", temperaturas);
+    socket.broadcast.emit("temperaturas", temperaturas);
+  }, 5000);
 });
 
 export default httpServer;
