@@ -5,6 +5,7 @@ import { Server } from "socket.io";
 import http from "http";
 import { randomInt } from "crypto";
 import temperaturasRoutes from "./routes/Temperaturas.routes.js";
+import { conn } from "./db.js";
 const app = express();
 const httpServer = http.createServer(app);
 export const io = new Server(httpServer, { cors: "*" });
@@ -83,10 +84,9 @@ var sensor = 0;
 io.on("connection", (socket) => {
   setInterval(() => {
     var startDate = "12:55:00";
-    var [first, second, third] = startDate.split(":");
+    var [first, _, third] = startDate.split(":");
     var newDate = first + ":" + (minuto += 5).toString() + ":" + third;
     console.log(newDate);
-    var randomNumber = randomInt(3);
     var randomSensor = temperaturas[sensor];
     var newSerie = {
       name: newDate,
@@ -96,11 +96,11 @@ io.on("connection", (socket) => {
     if (sensor === 3) {
       sensor = 0;
     }
-    console.log(newSerie);
     randomSensor.series.push(newSerie);
     socket.emit("temperaturas", temperaturas);
     socket.broadcast.emit("temperaturas", temperaturas);
   }, 5000);
 });
 
+conn()
 export default httpServer;
