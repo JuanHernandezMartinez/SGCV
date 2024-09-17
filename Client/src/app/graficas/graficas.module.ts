@@ -5,6 +5,7 @@ import { GraficasComponent } from './components/graficas/graficas.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FormsModule } from '@angular/forms';
 import { VolverButtonComponent } from '../shared/components/volver-button/volver-button.component';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [GraficasComponent],
@@ -14,6 +15,7 @@ import { VolverButtonComponent } from '../shared/components/volver-button/volver
     VolverButtonComponent,
     NgxChartsModule,
     FormsModule,
+    ButtonModule
   ],
 })
 export class GraficasModule {}

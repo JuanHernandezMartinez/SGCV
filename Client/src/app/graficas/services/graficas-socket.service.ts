@@ -6,18 +6,16 @@ import { io, Socket } from 'socket.io-client';
 })
 export class GraficasSocketService {
   private socketUrl: string = 'http://localhost:4000';
-  private socket: Socket;
-
+  private socket!: Socket;
   constructor() {
-    this.socket = io(this.socketUrl);
-    
+    this.connect();
   }
-
-  onWelcome(callback: (message: any[]) => void) {
+  connect() {
+    this.socket = io(this.socketUrl);
+  }
+  subscribeTemperatures(callback: (message: any[]) => void) {
     this.socket.on('temperaturas', callback);
   }
-
-
   disconnect() {
     if (this.socket) {
       this.socket.disconnect();

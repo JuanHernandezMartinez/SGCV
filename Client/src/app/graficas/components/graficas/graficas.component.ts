@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { multi } from './data';
+// import { multi } from './data';
 import { GraficasSocketService } from '../../services/graficas-socket.service';
 @Component({
   selector: 'app-graficas',
@@ -8,8 +8,10 @@ import { GraficasSocketService } from '../../services/graficas-socket.service';
 })
 export class GraficasComponent implements OnInit {
   graficasSocketService = inject(GraficasSocketService);
+  originalMulti: any[] = [];
+  filteredMulti: any[] = [];
   multi: any[] = [];
-  view: [number, number] = [700, 300];
+  view: [number, number] = [1200, 500];
   legend: boolean = true;
   showLabels: boolean = true;
   animations: boolean = true;
@@ -50,22 +52,31 @@ export class GraficasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.graficasSocketService.onWelcome((message: any[]) => {
-      console.log(message);
-
+    this.graficasSocketService.subscribeTemperatures((message: any[]) => {
+      this.originalMulti = message;
       this.multi = message;
     });
   }
 
+  deleteFilter(): void {
+    this.multi = this.originalMulti;
+    this.graficasSocketService.connect()
+  }
+
   onSelect(data: any): void {
-    // console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+    console.log(data);
+    this.graficasSocketService.disconnect();
+    this.filteredMulti = this.multi.filter((sensor) => sensor.name === data);
+    this.multi = this.filteredMulti;
   }
 
   onActivate(data: any): void {
     // console.log('Activate', JSON.parse(JSON.stringify(data)));
+    console.log('activando');
   }
 
   onDeactivate(data: any): void {
     // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+    console.log('desactivando');
   }
 }

@@ -82,25 +82,26 @@ var minuto = 55;
 var sensor = 0;
 
 io.on("connection", (socket) => {
-  setInterval(() => {
-    var startDate = "12:55:00";
-    var [first, _, third] = startDate.split(":");
-    var newDate = first + ":" + (minuto += 5).toString() + ":" + third;
-    console.log(newDate);
-    var randomSensor = temperaturas[sensor];
-    var newSerie = {
-      name: newDate,
-      value: randomInt(28, 40),
-    };
-    sensor++;
-    if (sensor === 3) {
-      sensor = 0;
-    }
-    randomSensor.series.push(newSerie);
-    socket.emit("temperaturas", temperaturas);
-    socket.broadcast.emit("temperaturas", temperaturas);
-  }, 5000);
+  // setInterval(() => {
+  //   var startDate = "12:55:00";
+  //   var [first, _, third] = startDate.split(":");
+  //   var newDate = first + ":" + (minuto += 5).toString() + ":" + third;
+  //   console.log(newDate);
+  //   var randomSensor = temperaturas[sensor];
+  //   var newSerie = {
+  //     name: newDate,
+  //     value: randomInt(28, 40),
+  //   };
+  //   sensor++;
+  //   if (sensor === 3) {
+  //     sensor = 0;
+  //   }
+  //   randomSensor.series.push(newSerie);
+  // }, 10000);
+  console.log("Cliente connectado");
+  socket.emit("temperaturas", temperaturas);
+  socket.broadcast.emit("temperaturas", temperaturas);
 });
 
-conn()
+conn();
 export default httpServer;
