@@ -1,6 +1,26 @@
 .root {
   height: 100vh;
   width: 100vw;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  padding-left: 5%;
+  padding-right: 5%;
+
+}
+h2{
+  font-size: xx-large;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.average-temp {
+  background-color: #d9d9d9;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  text-align: center;
 }
 
 .cards-container {

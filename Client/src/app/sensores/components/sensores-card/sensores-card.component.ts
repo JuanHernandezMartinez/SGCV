@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './sensores-card.component.css'
 })
 export class SensoresCardComponent {
-  @Input() public nombre!:String
+  @Input() public nombre:String="juan"
 
 
   public algo():void{

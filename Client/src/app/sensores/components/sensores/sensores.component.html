@@ -1,21 +1,17 @@
+<div style="position: fixed; right: 3%; top: 2%">
+  <app-volver-button />
+</div>
 <div class="root">
-  <div style="margin-top: 2%; margin-bottom: 2%; margin-left: 3%; margin-right: 3%; text-align: end;">
-    <app-volver-button />
-  </div>
+  <h1 style="font-weight: 500">Estado De Los Sensores</h1>
 
-  <div style="margin-left: 3%; margin-right: 3%">
-    <div class="cards-container">
-      @for (nombre of nombres; track $index) {
-      <app-sensores-card [nombre]="nombre"></app-sensores-card>
-      }
-    </div>
-  </div>
-
-  <div class="circle">
+  <div class="container">
     <div>
-      <p>Temperatura</p>
-      <p>promedio</p>
-      <p>{{ temperatura }}°C</p>
+      <div class="average-temp">
+        <h2 style="font-weight: 500; width: 70%;">Temperatura Promedio</h2>
+        <h2 style="font-weight: 600">30°C</h2>
+      </div>
+      <app-sensores-card />
     </div>
+    <div></div>
   </div>
 </div>
