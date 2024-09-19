@@ -1,17 +1,18 @@
-<div style="position: fixed; right: 3%; top: 2%">
+<div style="position: fixed; right: 3%; top: 2%; z-index: 1">
   <app-volver-button />
 </div>
 <div class="root">
   <h1 style="font-weight: 500">Estado De Los Sensores</h1>
 
   <div class="container">
-    <div>
-      <div class="average-temp">
-        <h2 style="font-weight: 500; width: 70%;">Temperatura Promedio</h2>
-        <h2 style="font-weight: 600">30°C</h2>
-      </div>
-      <app-sensores-card />
+    <div class="average-temp">
+      <h2 style="font-weight: 500; width: 70%; color: #333333">
+        Temperatura Promedio
+      </h2>
+      <h2 style="font-weight: 600; color: #333333">30°C</h2>
     </div>
-    <div></div>
+    @for (nombre of nombres; track $index) {
+    <app-sensores-card class="sensor-card" [nombre]="nombre" />
+    }
   </div>
 </div>
