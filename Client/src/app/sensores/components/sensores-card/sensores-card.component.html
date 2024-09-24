@@ -1,5 +1,8 @@
 <mat-card style="width: 100%; height: 180px" class="root">
-  <div style="background-color: #333333; border-radius: 30px;"></div>
+  <div style="background-color: #333333; border-radius: 30px;">
+    <input type="file" (change)="handleFileInput($event)" />    <img [src]="selectedImage" alt="Imagen seleccionada" *ngIf="selectedImage">
+    <mat-icon *ngIf="!selectedImage">insert_photo</mat-icon>
+  </div>
   <div style="background-color: #f0efef;  border-radius: 30px;">{{ nombre }}</div>
 </mat-card>
 
