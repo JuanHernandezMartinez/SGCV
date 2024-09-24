@@ -9,7 +9,7 @@
     }
     .root > div:first-child {
       width: 100%;
-      height: 50px; /* ajusta el alto del recuadro gris */
-      border-radius: 10px; /* ajusta el radio de curvatura */
+      height: 50px;
+      border-radius: 10px;
     }
   }

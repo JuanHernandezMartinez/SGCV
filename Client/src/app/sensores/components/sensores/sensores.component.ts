@@ -13,7 +13,7 @@ import { SensoresCardComponent } from '../sensores-card/sensores-card.component'
 export class SensoresComponent {
 
   nombres=[
-    'Sensor 1','Sensor 2','Sensor 3', 'Sensor 4', 'Sensor 5', 'Sensor 6'
+    'Sensor 1','Sensor 2','Sensor 3', 'Sensor 4', 'Sensor 5'
   ]
   temperatura=30
 }

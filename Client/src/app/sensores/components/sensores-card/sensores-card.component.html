@@ -1,9 +1,29 @@
 <mat-card style="width: 100%; height: 180px" class="root">
-  <div style="background-color: #333333; border-radius: 30px;">
-    <input type="file" (change)="handleFileInput($event)" />    <img [src]="selectedImage" alt="Imagen seleccionada" *ngIf="selectedImage">
-    <mat-icon *ngIf="!selectedImage">insert_photo</mat-icon>
+  <div style="background-color: #333333; border-radius: 30px">
+    <img
+      [src]="selectedImage"
+      alt="Imagen seleccionada"
+      height="150px"
+      width="96%"
+      *ngIf="selectedImage"
+    />
+    <!-- <mat-icon style="margin: 5%; width: 100%; height: 170px;" *ngIf="!selectedImage">insert_photo</mat-icon> -->
+    @if (!selectedImage) {
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        justify-self: center;
+        margin-top: 30%;
+      "
+    >
+    
+      <img src="assets/inserteimagen.png" alt="" height="75px" (click)="triggerInput()" />
+      <input #hiddenInput type="file" hidden (change)="handleFileInput($event)">
+    </div>
+    }
   </div>
-  <div style="background-color: #f0efef;  border-radius: 30px;">{{ nombre }}</div>
+  <div style="background-color: #f0efef; border-radius: 30px">{{ nombre }}</div>
 </mat-card>
 
 <!-- <img src="assets/inserte imagen.png" alt="inserte imagen" width="50px" class="w-full border-round" /> -->

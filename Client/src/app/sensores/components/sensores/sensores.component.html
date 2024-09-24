@@ -6,10 +6,20 @@
 
   <div class="container">
     <div class="average-temp">
-      <h2 style="font-weight: 500; width: 70%; color: #333333">
+      <h2 class="avg-text" style="font-weight: 500; width: 70%; color: #333333">
         Temperatura Promedio
       </h2>
-      <h2 style="font-weight: 600; color: #333333">30°C</h2>
+      <h2
+        style="
+          font-weight: 600;
+          color: #333333;
+          margin: 5%;
+          margin-top: 30%;
+          font-size: 60px;
+        "
+      >
+        30°C
+      </h2>
     </div>
     @for (nombre of nombres; track $index) {
     <app-sensores-card class="sensor-card" [nombre]="nombre" />
