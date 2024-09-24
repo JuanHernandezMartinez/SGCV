@@ -24,7 +24,7 @@
             <mat-card class="ventilador-card" style="margin-bottom: 10px;">
               <div class="ventilador" style="display: flex; justify-content: space-between; align-items: center;">
                 <p>{{ item }}</p>
-                <p-inputSwitch></p-inputSwitch>
+                <p-inputSwitch (onChange)="post()"></p-inputSwitch>
               </div>
             </mat-card>
           }
