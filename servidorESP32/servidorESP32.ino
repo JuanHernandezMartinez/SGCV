@@ -3,13 +3,15 @@
 #include <WebServer.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "wifiesp";
+const char* ssid = "sexo";
 const char* password = "12345678";
 const int fan1 =1;
 const int fan2 =2;
+const bool prendido=false;
 
-IPAddress local_IP(192, 168, 1, 184);  // La IP que deseas asignar al Arduino
+IPAddress local_IP(192, 168, 1,100);  // La IP que deseas asignar al Arduino
 IPAddress subnet(255, 255, 255, 0);
+IPAddress gateway(192, 168, 1, 1);
 
 WebServer server(80);
 
@@ -47,19 +49,18 @@ void makeApiRequest() {
 void getInfoSensors(){}
 
 void addCORSHeaders() {
-  server.sendHeader("Access-Control-Allow-Origin", "*");
+  server.sendHeader("Access-Control-Allow-Origin", "http://localhost:4200");
   server.sendHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
-// Endpoint para manejar solicitudes GET en la raíz "/"
 // Endpoint para manejar solicitudes OPTIONS (necesario para CORS preflight)
 void handleOptions() {
   addCORSHeaders();
   server.send(204);  // Responder sin cuerpo
 }
 
-void turnFan(){
+void turnFan() {
   addCORSHeaders();
   if (server.hasArg("plain")) {
     String body = server.arg("plain");
@@ -72,12 +73,13 @@ void turnFan(){
     if (!error) {
       int param1 = doc["fan"];
       int param2 = doc["on"];
+      digitalWrite(4,!prendido);
 
-    Serial.print("param1: ");
-    Serial.println(param1);
+      Serial.print("param1: ");
+      Serial.println(param1);
 
-    Serial.print("param2: ");
-    Serial.println(param2);
+      Serial.print("param2: ");
+      Serial.println(param2);
 
       server.send(200, "application/json", "{\"message\":\"Cambiado con exito\"}");
     } else {
@@ -90,8 +92,10 @@ void turnFan(){
 
 void setup() {
   Serial.begin(9600);
+  pinMode(4, OUTPUT);
+  digitalWrite(4,LOW);
 
-  if (!WiFi.config(local_IP, INADDR_NONE, subnet)) {  // INADDR_NONE significa sin gateway
+  if (!WiFi.config(local_IP, gateway, subnet)) {
     Serial.println("Error al configurar la IP estática");
   }
 
@@ -104,12 +108,13 @@ void setup() {
   }
   Serial.println("Connected to WiFi");
 
-  //server.on("/", HTTP_GET, handleRoot);
-  //server.on("/status", HTTP_GET, handleStatus);
-  //.on("/post-data", HTTP_POST, handlePostData);
-  //server.on("/sensor", HTTP_GET, handleSensor);
-  server.on("/turn",HTTP_POST, turnFan);
+  server.on("/turn", HTTP_POST, turnFan);
+  
+  // Agregar handler para OPTIONS en /turn
+  server.on("/turn", HTTP_OPTIONS, handleOptions);
+
   server.on("/", HTTP_OPTIONS, handleOptions);
+  
   server.begin();
   Serial.println("HTTP server started");
 }
