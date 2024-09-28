@@ -3,15 +3,15 @@
 #include <WebServer.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "sexo";
-const char* password = "12345678";
+const char* ssid = "Sistemas";
+const char* password = "toorprox2370";
 const int fan1 =1;
 const int fan2 =2;
-const bool prendido=false;
+bool prendido=false;
 
-IPAddress local_IP(192, 168, 1,100);  // La IP que deseas asignar al Arduino
+IPAddress local_IP(172,17,207,236);  // La IP que deseas asignar al Arduino
 IPAddress subnet(255, 255, 255, 0);
-IPAddress gateway(192, 168, 1, 1);
+IPAddress gateway(172,17,207,1);
 
 WebServer server(80);
 
@@ -73,13 +73,13 @@ void turnFan() {
     if (!error) {
       int param1 = doc["fan"];
       int param2 = doc["on"];
-      digitalWrite(4,!prendido);
 
-      Serial.print("param1: ");
-      Serial.println(param1);
+      // Alternar el estado del LED
+      prendido = !prendido;
+      digitalWrite(4, prendido ? HIGH : LOW);
 
-      Serial.print("param2: ");
-      Serial.println(param2);
+      Serial.print("LED estado: ");
+      Serial.println(prendido ? "ENCENDIDO" : "APAGADO");
 
       server.send(200, "application/json", "{\"message\":\"Cambiado con exito\"}");
     } else {
