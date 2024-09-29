@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { obtenerTemperatura, obtenerTemperaturas, guardarTemperatura } from "../controllers/temperaturas.controller.js"
+import { obtenerTemperatura, obtenerTemperaturas, guardarTemperatura } from "../controllers/Temperaturas.controller.js"
 const router = Router()
 const url = "/api"
 
