@@ -1,15 +1,41 @@
-.root{
-    display: grid;
-    grid-template-columns: 30% 70%;
-    border-radius: 30px;
+@import "primeicons/primeicons.css";
+
+.cuadro {
+  background-color: black;
+  width: 15px;
+  height: 15px;
+}
+.root {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  border-radius: 30px;
+}
+.info-container {
+  margin-top: 5%;
+  margin-left: 5%;
+}
+p {
+  font-weight: 600;
+  font-size: larger;
+}
+.status {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  display: flex;
+}
+.status-color {
+  margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
 }
 @media (max-width: 768px) {
-    .root {
-      grid-template-columns: 1fr;
-    }
-    .root > div:first-child {
-      width: 100%;
-      height: 50px;
-      border-radius: 10px;
-    }
+ 
+  .root > div:first-child {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
   }
+}

@@ -7,7 +7,6 @@
       width="96%"
       *ngIf="selectedImage"
     />
-    <!-- <mat-icon style="margin: 5%; width: 100%; height: 170px;" *ngIf="!selectedImage">insert_photo</mat-icon> -->
     @if (!selectedImage) {
     <div
       style="
@@ -17,13 +16,35 @@
         margin-top: 30%;
       "
     >
-    
-      <img src="assets/inserteimagen.png" alt="" height="75px" (click)="triggerInput()" />
-      <input #hiddenInput type="file" hidden (change)="handleFileInput($event)">
+      <img
+        src="assets/inserteimagen.png"
+        alt=""
+        height="75px"
+        (click)="triggerInput()"
+      />
+      <input
+        #hiddenInput
+        type="file"
+        hidden
+        (change)="handleFileInput($event)"
+      />
     </div>
     }
   </div>
-  <div style="background-color: #f0efef; border-radius: 30px">{{ nombre }}</div>
+  <div style="background-color: #f0efef; border-radius: 30px">
+    <div class="info-container">
+      <p>25 °</p>
+      <p>{{ nombre }}</p>
+      <p>Area tomates</p>
+      <div class="status">
+        <div
+          class="status-color"
+          [ngStyle]="{ 'background-color': true ? '#70FF00' : null }"
+        ></div>
+        <p>{{ true ? "Activo" : "Inactivo" }}</p>
+      </div>
+    </div>
+  </div>
 </mat-card>
 
-<!-- <img src="assets/inserte imagen.png" alt="inserte imagen" width="50px" class="w-full border-round" /> -->
+<!--  -->

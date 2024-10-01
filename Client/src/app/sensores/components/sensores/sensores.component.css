@@ -3,8 +3,8 @@
   width: 100vw;
   padding-top: 3%;
   padding-bottom: 3%;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 h2 {
   font-size: 30px;
@@ -18,12 +18,12 @@ h2 {
 @media (max-width: 900px) {
   .container {
     display: grid;
-    grid-template-columns: 90%;
+    grid-template-columns: 100%;
   }
 }
 
 .sensor-card {
-  margin: 2%;
+  margin-top: 2%;
 }
 
 .average-temp {
