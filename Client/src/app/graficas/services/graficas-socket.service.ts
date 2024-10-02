@@ -10,13 +10,13 @@ export class GraficasSocketService {
   constructor() {
     this.connect();
   }
-  connect() {
+  public connect() {
     this.socket = io(this.socketUrl);
   }
-  subscribeTemperatures(callback: (message: any[]) => void) {
+  public subscribeTemperatures(callback: (message: any[]) => void) {
     this.socket.on('temperaturas', callback);
   }
-  disconnect() {
+  public disconnect() {
     if (this.socket) {
       this.socket.disconnect();
     }

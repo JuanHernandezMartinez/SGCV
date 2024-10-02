@@ -1,5 +1,8 @@
 #include "HardwareSerial.h"
+#include "Sensor.h"
 bool prendido = false;
+Sensor s1(1, 4, false);
+
 AsyncWebServer server(80);
 
 void InitServer() {
@@ -13,8 +16,9 @@ void InitServer() {
       body += String((char *)data, len);
       Serial.println("Cuerpo de la solicitud:");
       Serial.println(body);
+      s2.powered = !s2.powered;
+      digitalWrite(s2.pin, s2.powered ? HIGH : LOW);
 
-      // Responder al cliente
       request->send(200, "text/plain", "Hola mundo (desde ESP32)");
     });
 

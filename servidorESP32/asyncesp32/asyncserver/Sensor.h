@@ -1,11 +1,12 @@
 class Sensor {
 public:
+  int id;
   int pin;
   bool powered;
-
-  // Constructor para inicializar el sensor
-  Sensor(int p, bool pow) {
-    pin = p;
-    powered = pow;
+  
+  Sensor(int id, int p, bool pow) {
+    this.id = id;
+    this.pin = p;
+    this.powered = pow;
   }
 };
