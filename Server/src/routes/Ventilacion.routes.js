@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { encenderVentilador } from "../controllers/Ventilacion.controller.js";
+import { encenderVentilador } from "../controllers/ventilacion.controller.js";
 
 const router = Router();
 

@@ -14,5 +14,10 @@ app.use(express.json());
 app.use(temperaturasRoutes);
 app.use(ventilacionRoutes);
 
+app.get("/",(req,res)=>{
+    console.log("Entro a la raiz")
+    res.send("Hola mundo")
+})
+
 // conn();
 export default httpServer;
