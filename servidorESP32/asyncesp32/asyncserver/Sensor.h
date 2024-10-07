@@ -4,9 +4,9 @@ public:
   int pin;
   bool powered;
   
-  Sensor(int id, int p, bool pow) {
-    this.id = id;
-    this.pin = p;
-    this.powered = pow;
+  Sensor(int i, int p, bool pow) {
+    id = i;
+    pin = p;
+    powered = pow;
   }
 };
