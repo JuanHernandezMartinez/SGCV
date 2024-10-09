@@ -5,10 +5,13 @@
 #include "Sensor.h"
 #include <Arduino.h>
 #include <ArduinoJson.h>
-#include <OneWire.h>                
+#include <OneWire.h>
 #include <DallasTemperature.h>
 
-extern DallasTemperature sensors;
+extern DallasTemperature sensor1;
+extern DallasTemperature sensor2;
+extern DallasTemperature sensor3;
+
 
 // bool prendido = false;
 // Sensor s1(1, 4, false);
@@ -50,12 +53,19 @@ void InitServer() {
   // });
 
   server.on("/temperaturas", HTTP_GET, [](AsyncWebServerRequest *request) {
-    sensors.requestTemperatures();
+ 
+    sensor2.requestTemperatures();
+    sensor3.requestTemperatures();
     DynamicJsonDocument doc(1024);
-    JsonObject tempSensorObj = doc.createNestedObject("tempSensor");
-    tempSensorObj["temperature"] = sensors.getTempCByIndex(0);
+    JsonArray temperatures = doc.createNestedArray("temperatures");
+    temperatures.add(sensor2.getTempCByIndex(0));
+    temperatures.add(sensor3.getTempCByIndex(0));
+
+    // Serializar el documento JSON en un string
     String jsonResponse;
     serializeJson(doc, jsonResponse);
+
+    // Enviar la respuesta en formato JSON
     request->send(200, "application/json", jsonResponse);
   });
 
@@ -73,7 +83,7 @@ void InitServer() {
       request->send(200, "text/plain", "Hola mundo (desde ESP32)");
     });
 
-  
+
 
   server.onNotFound([](AsyncWebServerRequest *request) {
     request->send(400, "text/plain", "Not found");

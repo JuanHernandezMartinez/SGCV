@@ -1,6 +1,6 @@
 export async function encenderVentilador(req, res) {
   try {
-    let onRequest = await fetch("http://192.168.0.150/turn", {
+    let onRequest = await fetch("http://192.168.1.150/turn", {
       method: "POST",
       body: JSON.stringify({ sexo: "si" }),
     });

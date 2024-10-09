@@ -3,7 +3,7 @@ import Medicion from "../models/Medicion.js";
 export async function obtenerTemperaturas(req, res) {
   try {
     console.log("Controller obtener temperaturas");
-    let tempRequest = await fetch("/temperaturas", { method: "GET" });
+    let tempRequest = await fetch("http://192.168.1.150/temperaturas", { method: "GET" });
     console.log(tempRequest.body);
     let medicion = tempRequest.body.temperature;
     return res.send(medicion);
