@@ -4,6 +4,7 @@ import { HomeComponent } from './inicio/components/home/home.component';
 import { SensoresComponent } from './sensores/components/sensores/sensores.component';
 import { GraficasComponent } from './graficas/components/graficas/graficas.component';
 import { VentilacionComponent } from './ventilacion/components/ventilacion/ventilacion.component';
+import { FormularioSensoresComponent } from './sensores/components/formulario-sensores/formulario-sensores.component';
 
 export const routes: Routes = [
   {
@@ -26,4 +27,8 @@ export const routes: Routes = [
     path: 'ventilacion',
     component: VentilacionComponent,
   },
+  {
+    path:"sensores/formularioSensores",
+    component:FormularioSensoresComponent
+  }
 ];
