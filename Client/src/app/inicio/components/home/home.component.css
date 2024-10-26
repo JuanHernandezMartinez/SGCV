@@ -1,55 +1,78 @@
 .container {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  width: 100vw;
-  height: 100vh;
-}
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
   background-size: cover;
-  background-repeat: no-repeat;
-  height: 100vh;
   background-image: url("../../../../../public/assets/Background.jpg");
 }
-.salir-container {
-  text-align: end;
-  margin: 3%;
-}
-.buttons-container {
+
+.header {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 100px;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 250px;
+  height: 300px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-icon {
+  height: 80%;
+  background-color: #f5f5f5a1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.card-icon img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.card-title {
+  height: 20%;
+  background: linear-gradient(90deg, rgba(101,253,45,0.5) 0%, rgba(34, 192, 195, 0.534) 100%);
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.buttons-container p-button {
-  margin: 4%;
+.card-title span {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
-@media (max-width: 1024px) {
-  .container {
-    display: grid;
-    grid-template-columns: 100%;
-    width: 100vw;
-    height: 100vh;
-  }
-  .image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 30vh;
-    background-image: url("../../../../../public/assets/Background.jpg");
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+    margin-top: 50px;
   }
 
-  .buttons-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  .card {
+    width: 100%;
+    max-width: 300px;
+    height: 250px;
   }
 }

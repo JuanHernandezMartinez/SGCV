@@ -1,18 +1,40 @@
 <div class="container">
-  <div class="image-container"></div>
-  <div class="menu-container">
-    <div class="salir-container">
-      <p-button
-        label="Salir"
-        [raised]="true"
-        severity="danger"
-        (onClick)="salir()"
-      />
+  <div class="header">
+    <p-button 
+      label="Salir" 
+      icon="pi pi-power-off" 
+      severity="danger" 
+      [raised]="true" 
+      (onClick)="salir()"
+    />
+  </div>
+  
+  <div class="cards-container">
+    <div class="card" (click)="sensores()">
+      <div class="card-icon">
+        <img src="assets/sensoreshome.png" alt="Sensores icon"/>
+      </div>
+      <div class="card-title">
+        <span>Sensores</span>
+      </div>
     </div>
-    <div class="buttons-container">
-      <p-button label="Sensores" [raised]="true" (onClick)="sensores()" />
-      <p-button label="Graficas" [raised]="true" (onClick)="graficas()" />
-      <p-button label="Ventilación" [raised]="true" (onClick)="ventilacion()" />
+
+    <div class="card" (click)="graficas()">
+      <div class="card-icon">
+        <img src="assets/graficashome.png" alt="Gráficas icon"/>
+      </div>
+      <div class="card-title">
+        <span>Gráficas</span>
+      </div>
+    </div>
+
+    <div class="card" (click)="ventilacion()">
+      <div class="card-icon">
+        <img src="assets/ventilacionhome.png" alt="Ventilación icon"/>
+      </div>
+      <div class="card-title">
+        <span>Ventilación</span>
+      </div>
     </div>
   </div>
 </div>

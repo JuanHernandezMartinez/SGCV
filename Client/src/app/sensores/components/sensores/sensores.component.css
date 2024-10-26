@@ -1,3 +1,10 @@
+.root {
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  background-size: cover;
+  background-image: url("../../../../../public/assets/Background.jpg");
+}
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -55,6 +62,7 @@ h2 {
   .container {
     display: grid;
     grid-template-columns: 100%;
+    
   }
 }
 
