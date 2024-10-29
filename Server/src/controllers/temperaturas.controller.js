@@ -4,8 +4,8 @@ export async function obtenerTemperaturas(req, res) {
   try {
     console.log("Controller obtener temperaturas");
     let tempRequest = await fetch("http://192.168.1.150/temperaturas", { method: "GET" });
-    console.log(tempRequest.body);
-    let medicion = tempRequest.body.temperature;
+    let medicion = await tempRequest.json()
+    console.log(medicion)
     return res.send(medicion);
   } catch (error) {
     console.log("Error en el catch: ", error);
