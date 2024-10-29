@@ -1,17 +1,8 @@
 .root {
   width: 100%;
   min-height: 100vh;
-  padding: 20px;
   background-size: cover;
   background-image: url("../../../../../public/assets/Background.jpg");
-}
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #333333;
-  padding: 1rem;
-  color: #f0efef;
 }
 
 .navbar-brand {
@@ -22,12 +13,12 @@
 
 .navbar-end {
   display: flex;
-  align-items: center;
+  align-items: end;
 }
 
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column;
+    flex-direction: flex;
   }
   .navbar-brand {
     font-size: 1.2rem;
@@ -37,7 +28,7 @@
   }
 }
 .root {
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
   padding-top: 3%;
   padding-bottom: 3%;
@@ -60,14 +51,18 @@ h2 {
 
 @media (max-width: 900px) {
   .container {
-    display: grid;
-    grid-template-columns: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
     
   }
 }
 
 .sensor-card {
   margin-top: 2%;
+  width: 90%;
 }
 
 .average-temp {
@@ -78,13 +73,10 @@ h2 {
   border-radius: 20px;
   margin: 2%;
   padding: 20px;
+  width: 90%;
 }
 .avg-text{
   margin-top: 10%;
-}
-
-.sensor-card {
-  margin-top: 2%;
 }
 
 .cards-container {
@@ -116,6 +108,10 @@ h2 {
     height: 8%;
     font-size: x-large;
     top: 20%;
+  }
+  .avg-text{
+    margin-top: 10%;
+    font-size: 1.3em;
   }
 }
 @media (max-width: 900px) {

@@ -1,33 +1,26 @@
-<nav class="navbar">
-  <div class="navbar-brand">
-    <h2>Estado de los sensores</h2>
-  </div>
-  <div class="navbar-end">
-    <app-volver-button></app-volver-button>
-  </div>
-</nav>
+<div style="position: absolute; right: 2%; top: 2%;">
+  <app-volver-button></app-volver-button>
+</div>
+
 
 <div class="root">
-
   <div class="container">
     <div class="average-temp">
-      <h2 class="avg-text" style="font-weight: 500; width: 70%; color: #333333">
+      <h2 class="avg-text" style="font-weight: 500; width: 60%; color: #333333">
         Temperatura Promedio
       </h2>
-      <h2
-        style="
+      <h2 style="
           font-weight: 600;
           color: #333333;
           margin: 5%;
           margin-top: 30%;
-          font-size: 60px;
-        "
-      >
+          font-size: 40px;
+        ">
         30°C
       </h2>
     </div>
-    @for (nombre of nombres; track $index) {
-    <app-sensores-card class="sensor-card" [nombre]="nombre" />
+    @for (sensor of sensores; track $index) {
+    <app-sensores-card class="sensor-card" [sensor]="sensor" />
     }
   </div>
 </div>

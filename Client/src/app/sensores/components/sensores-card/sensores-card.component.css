@@ -1,11 +1,5 @@
 @import "primeicons/primeicons.css";
 
-.cuadro {
-  background-color: black;
-  width: 10%;
-  height: 10%;
-  border-radius: 50%;
-}
 .root {
   position: relative;
   display: grid;

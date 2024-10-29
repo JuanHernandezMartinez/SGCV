@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sensores-card.component.css'
 })
 export class SensoresCardComponent {
-  @Input() public nombre: String = "juan";
+  @Input() public sensor:any;
   public selectedImage: string | null = null;
 
   @ViewChild('hiddenInput') hiddenInput: any;
