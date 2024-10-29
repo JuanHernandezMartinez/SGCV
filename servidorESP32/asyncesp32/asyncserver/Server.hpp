@@ -53,13 +53,14 @@ void InitServer() {
   // });
 
   server.on("/temperaturas", HTTP_GET, [](AsyncWebServerRequest *request) {
- 
+    sensor1.requestTemperatures();
     sensor2.requestTemperatures();
     sensor3.requestTemperatures();
     DynamicJsonDocument doc(1024);
     JsonArray temperatures = doc.createNestedArray("temperatures");
     temperatures.add(sensor2.getTempCByIndex(0));
     temperatures.add(sensor3.getTempCByIndex(0));
+    temperatures.add(sensor1.getTempCByIndex(0));
 
     // Serializar el documento JSON en un string
     String jsonResponse;
