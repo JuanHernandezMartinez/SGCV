@@ -11,10 +11,10 @@ OneWire ourWire1(5);
 DallasTemperature sensor1(&ourWire1);
 
 OneWire ourWire2(21);
-DallasTemperature sensor2(&ourWire1);
+DallasTemperature sensor2(&ourWire2);
 
 OneWire ourWire3(19);
-DallasTemperature sensor3(&ourWire1);
+DallasTemperature sensor3(&ourWire3);
 
 void setup(void) {
   Serial.begin(115200);
