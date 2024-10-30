@@ -1,7 +1,8 @@
-import { MatCardModule } from '@angular/material/card';
-import { Component, Input, ViewChild } from '@angular/core';
+import { MatCardLgImage, MatCardModule } from '@angular/material/card';
+import { Component, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { SensoresSocketService } from '../../services/sensores-socket.service';
 
 @Component({
   selector: 'app-sensores-card',
@@ -10,11 +11,18 @@ import { CommonModule } from '@angular/common';
   templateUrl: './sensores-card.component.html',
   styleUrl: './sensores-card.component.css'
 })
-export class SensoresCardComponent {
-  @Input() public sensor:any;
+export class SensoresCardComponent implements OnInit, OnDestroy {
+
+  @Input() public sensor: any;
+  @ViewChild('hiddenInput') hiddenInput: any;
+  private sensoresSocket = inject(SensoresSocketService)
   public selectedImage: string | null = null;
 
-  @ViewChild('hiddenInput') hiddenInput: any;
+  ngOnInit(): void {
+    this.sensoresSocket.subscribeMonitoring((message: any) => {
+      console.log(message)
+    })
+  }
 
   // Este método será llamado cuando el usuario haga clic en la imagen
   triggerInput() {
@@ -29,5 +37,8 @@ export class SensoresCardComponent {
       this.selectedImage = reader.result as string;
     };
     reader.readAsDataURL(file);
+  }
+  ngOnDestroy(): void {
+    this.sensoresSocket.disconnect()
   }
 }
