@@ -1,28 +1,36 @@
 import express from "express";
 import cors from "cors";
-import { Server } from "socket.io";
+// import { conn } from "./db.js";
 import http from "http";
 import temperaturasRoutes from "./routes/Temperaturas.routes.js";
 import ventilacionRoutes from "./routes/Ventilacion.routes.js";
 import sensoresRoutes from "./routes/Sensores.routes.js";
-import { conn } from "./db.js";
-import { setupSocketIO } from "./events/temperaturas.js";
-
+import WebSocket, { WebSocketServer } from "ws";
 
 const app = express();
-const httpServer = http.createServer(app);
-export const io = new Server(httpServer, { cors: "*" });
-
 app.use(cors());
 app.use(express.json());
+const httpServer = http.createServer(app);
+const wss = new WebSocketServer({ server: httpServer });
+
+wss.on("connection", async function connection(ws) {
+  console.log("New client connected");
+  ws.on("error", console.error);
+
+  ws.on("message", function message(data) {
+    const text = data.toString(); // Convertimos el Buffer a texto
+    console.log("Mensaje recibido: %s", text);
+    wss.clients.forEach(function each(client) {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(text); // Enviamos el texto a los demás clientes
+      }
+    });
+  });
+});
+
 app.use(temperaturasRoutes);
 app.use(ventilacionRoutes);
-app.use(sensoresRoutes)
-app.get("/", (req, res) => {
-  console.log("Health check")
-  res.send("Health check")
-})
-
-setupSocketIO(io);
+app.use(sensoresRoutes);
 // conn();
+
 export default httpServer;

@@ -1,5 +1,12 @@
 import { MatCardLgImage, MatCardModule } from '@angular/material/card';
-import { Component, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { SensoresSocketService } from '../../services/sensores-socket.service';
@@ -9,24 +16,19 @@ import { SensoresSocketService } from '../../services/sensores-socket.service';
   standalone: true,
   imports: [MatCardModule, MatIconModule, CommonModule],
   templateUrl: './sensores-card.component.html',
-  styleUrl: './sensores-card.component.css'
+  styleUrl: './sensores-card.component.css',
 })
 export class SensoresCardComponent implements OnInit, OnDestroy {
-
   @Input() public sensor: any;
   @ViewChild('hiddenInput') hiddenInput: any;
-  private sensoresSocket = inject(SensoresSocketService)
+  private sensoresSocket = inject(SensoresSocketService);
   public selectedImage: string | null = null;
 
-  ngOnInit(): void {
-    this.sensoresSocket.subscribeMonitoring((message: any) => {
-      console.log(message)
-    })
-  }
+  ngOnInit(): void {}
 
   // Este método será llamado cuando el usuario haga clic en la imagen
   triggerInput() {
-    this.hiddenInput.nativeElement.click();  // Simulamos un click en el input
+    this.hiddenInput.nativeElement.click(); // Simulamos un click en el input
   }
 
   public handleFileInput(event: any) {
@@ -39,6 +41,5 @@ export class SensoresCardComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
   }
   ngOnDestroy(): void {
-    this.sensoresSocket.disconnect()
   }
 }

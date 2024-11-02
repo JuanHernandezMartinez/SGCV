@@ -23,28 +23,6 @@ extern DallasTemperature sensor3;
 
 
 AsyncWebServer server(80);
-
-// String getSensorsJson() {
-//   DynamicJsonDocument doc(1024);
-//   JsonArray sensorArray = doc.createNestedArray("sensors");
-
-//   // for (Sensor* sensor : sensorslist) {
-//   //   JsonObject sensorObj = sensorArray.createNestedObject();
-//   //   sensorObj["id"] = sensor->id;
-//   //   sensorObj["pin"] = sensor->pin;
-//   //   sensorObj["powered"] = sensor->powered;
-//   // }
-
-//   // Agregamos la temperatura al JSON
-//   sensors.requestTemperatures();
-//   JsonObject tempSensorObj = doc.createNestedObject("tempSensor");
-//   tempSensorObj["temperature"] = sensors.getTempCByIndex(0);  // Suponemos que hay un sensor en el índice 0
-
-//   String output;
-//   serializeJson(doc, output);
-//   return output;
-// }
-
 void InitServer() {
 
   // server.on("/sensors", HTTP_GET, [](AsyncWebServerRequest *request) {
