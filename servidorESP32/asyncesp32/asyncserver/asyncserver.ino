@@ -76,13 +76,18 @@ void sendTemperature() {
   JsonArray mediciones = doc.createNestedArray("mediciones");
 
   JsonObject sensor1Data = mediciones.createNestedObject();
-  sensor1Data["s1"] = sensor1.getTempCByIndex(0);
+  sensor1Data["name"] = "sensor 1";
+  sensor1Data["temp"] = sensor1.getTempCByIndex(0);
 
   JsonObject sensor2Data = mediciones.createNestedObject();
-  sensor2Data["s2"] = sensor2.getTempCByIndex(0);
+  sensor2Data["name"] = "sensor 2";
+  sensor2Data["temp"] = sensor2.getTempCByIndex(0);
+
 
   JsonObject sensor3Data = mediciones.createNestedObject();
-  sensor3Data["s3"] = sensor3.getTempCByIndex(0);
+  sensor3Data["name"] = "sensor 3";
+  sensor3Data["temp"] = sensor3.getTempCByIndex(0);
+
 
   String jsonMessage;
   serializeJson(doc, jsonMessage);

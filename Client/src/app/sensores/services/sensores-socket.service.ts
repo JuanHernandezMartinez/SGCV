@@ -1,71 +1,49 @@
 import { Injectable } from '@angular/core';
-import { Message, Client } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Medicion } from '../models/Mediciones';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SensoresSocketService {
-  private socketUrl: string = 'http://localhost:4000';
-  private topic = '';
-  private stompClient!: Client;
+  private socketUrl: string = 'ws://localhost:4000';
+  private medicionesSubject: BehaviorSubject<Medicion[]> = new BehaviorSubject<
+    Medicion[]
+  >([]);
+  public medicionesEvent$: Observable<Medicion[]> =
+    this.medicionesSubject.asObservable();
+  private socket: WebSocket | null = null;
 
-  constructor() {}
-
-  initConnenctionSocket() {
-    const url = this.socketUrl;
-
-    // const socket = new SockJS(url);
-    // this.stompClient = Stomp.over(socket);
-    console.log('Iniciando conexión chat socket service');
-
-    this.stompClient = new Client({
-      webSocketFactory: () => new SockJS(url),
-      connectHeaders: {},
+  //iniciar la conexion cuando se renderiza el componente
+  public initSockets(): void {
+    this.socket = new WebSocket(this.socketUrl);
+    // Abrir la conexión
+    this.socket.addEventListener('open', () => {
+      console.log('Socket connection opened');
     });
 
-    this.stompClient.onConnect = (frame) => {
-      console.log('Connected: Chat soocket service');
-      this.joinTopic();
-    };
-
-    this.stompClient.onStompError = (frame) => {
-      console.error('Broker reported error: ' + frame.headers['message']);
-      console.error('Additional details: ' + frame.body);
-    };
-
-    this.stompClient.onWebSocketClose = (evt) => {
-      console.log(`Chat socket service closed with`);
-      this.disconect();
-    };
-
-    this.stompClient.activate();
+    // Escuchar los mensajes
+    this.socket.addEventListener('message', (event) => {
+      let parseJson = JSON.parse(event.data);
+      let mediciones: Medicion[] = [];
+      if (parseJson?.mediciones) {
+        mediciones = parseJson.mediciones;
+        this.updateMediciones(mediciones);
+      }
+    });
   }
 
-  public joinTopic() {
-    if (this.stompClient.connected) {
-      this.subscribeToTopic();
-    } else {
-      this.stompClient.onConnect = (frame) => {
-        console.log('Chat socket connected, subscribing to topic wp now.');
-        this.subscribeToTopic();
-      };
+  //actualizar el observable
+  public updateMediciones(mediciones: Medicion[]): any {
+    this.medicionesSubject.next(mediciones);
+    console.log('Actualizando mediciones');
+  }
+  public disconnect(): void {
+    if (this.socket) {
+      this.socket.close(); // Cierra la conexión WebSocket
+      this.socket = null; // Limpia la referencia a la instancia WebSocket
+      this.medicionesSubject.next([]); // Opcional: limpia el subject si es necesario
+      console.log('Disconnected from WebSocket.');
     }
-  }
-
-  private subscribeToTopic() {
-    try {
-      this.stompClient.subscribe(`/topic/wp`, (message: any) => {
-        const content = JSON.parse(message.body);
-        console.log(content);
-      });
-    } catch (error) {
-      console.error(`Error subscribing to topic /topic/wp`, error);
-    }
-  }
-
-  public disconect(): void {
-    this.stompClient.deactivate();
-    console.log('Chat socket desconectado');
   }
 }

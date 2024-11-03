@@ -20,9 +20,11 @@ wss.on("connection", async function connection(ws) {
   ws.on("message", function message(data) {
     const text = data.toString(); // Convertimos el Buffer a texto
     console.log("Mensaje recibido: %s", text);
+    let parseJson = JSON.parse(text)
+    let parseData = JSON.stringify(parseJson)
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
-        client.send(text); // Enviamos el texto a los demás clientes
+        client.send(parseData);
       }
     });
   });
