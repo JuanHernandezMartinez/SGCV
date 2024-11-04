@@ -1,10 +1,11 @@
+import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 // import { conn } from "./psqlDB.js";
 import http from "http";
-import temperaturasRoutes from "./routes/Temperaturas.routes.js";
-import ventilacionRoutes from "./routes/Ventilacion.routes.js";
-import sensoresRoutes from "./routes/Sensores.routes.js";
+import temperaturasRoutes from "./routes/Temperaturas.routes";
+import ventilacionRoutes from "./routes/Ventilacion.routes";
+import sensoresRoutes from "./routes/Sensores.routes";
 import WebSocket, { WebSocketServer } from "ws";
 
 const app = express();
@@ -20,8 +21,8 @@ wss.on("connection", async function connection(ws) {
   ws.on("message", function message(data) {
     const text = data.toString(); // Convertimos el Buffer a texto
     console.log("Mensaje recibido: %s", text);
-    let parseJson = JSON.parse(text)
-    let parseData = JSON.stringify(parseJson)
+    let parseJson = JSON.parse(text);
+    let parseData = JSON.stringify(parseJson);
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(parseData);

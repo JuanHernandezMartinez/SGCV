@@ -1,4 +1,4 @@
-export async function encenderVentilador(req, res) {
+export async function encenderVentilador(req: any, res: any) {
   try {
     let onRequest = await fetch("http://192.168.1.150/turn", {
       method: "POST",
@@ -8,10 +8,10 @@ export async function encenderVentilador(req, res) {
       console.log("Encendido con exito");
       return res.sendStatus(200).end();
     }
-    console.log("Error en el try")
+    console.log("Error en el try");
     return res.sendStatus(500).end();
   } catch (error) {
-    console.log("Entro el catch")
+    console.log("Entro el catch");
     return res.sendStatus(500).end();
   }
 }

@@ -1,0 +1,10 @@
+services:
+  db:
+    image: postgres:13.16-bookworm
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: sgcvpasswd123
+      POSTGRES_DB: sgcv
+    restart: always

@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { encenderVentilador } from "../controllers/ventilacion.controller.js";
+import { encenderVentilador } from "../controllers/ventilacion.controller";
 
-const router = Router();
+const router:Router = Router();
 
 router.post("/api/ventilacion/turn", encenderVentilador);
  
