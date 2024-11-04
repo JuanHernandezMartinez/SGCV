@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const mongodb_URI = "mongodb://localhost:27017/Temperaturas";
+const mongodb_URI = "psql://localhost:5432/Temperaturas";
 
 export async function conn() {
   try {

@@ -6,7 +6,7 @@ import { Medicion } from '../models/Mediciones';
   providedIn: 'root',
 })
 export class SensoresSocketService {
-  private socketUrl: string = 'ws://localhost:4000';
+  private socketUrl: string = 'http://localhost:4000';
   private medicionesSubject: BehaviorSubject<Medicion[]> = new BehaviorSubject<
     Medicion[]
   >([]);

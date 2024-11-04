@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-// import { conn } from "./db.js";
+// import { conn } from "./psqlDB.js";
 import http from "http";
 import temperaturasRoutes from "./routes/Temperaturas.routes.js";
 import ventilacionRoutes from "./routes/Ventilacion.routes.js";

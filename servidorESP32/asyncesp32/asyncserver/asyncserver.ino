@@ -14,7 +14,7 @@ const uint16_t websockets_server_port = 4000;
 WebsocketsClient client;
 
 unsigned long lastSendTime = 0;
-const unsigned long sendInterval = 5000;
+const unsigned long sendInterval = 2000;
 const unsigned long reconnectInterval = 5000;  // Intervalo de reconexión
 unsigned long lastReconnectAttempt = 0;
 
