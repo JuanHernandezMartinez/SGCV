@@ -8,4 +8,6 @@ export class Medicion {
   name: string;
   @Column()
   sensorName: string;
+  @Column()
+  temperature: number;
 }
