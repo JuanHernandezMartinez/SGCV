@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { Sensor } from "../models/Sensor";
 import { Repository } from "typeorm";
-export interface SensoresController {
+
+interface SensoresController {
   obtenerSensores(req: Request, res: Response): any;
 
   createSensor(req: Request, res: Response): any;
@@ -20,16 +21,15 @@ export class SensoresControllerImpl implements SensoresController {
     return res.send(sensors);
   }
 
-  async createSensor(req: Request, res: Response) {
+  public async createSensor(req: Request, res: Response) {
     let sensorData: Sensor = req.body;
-    let newSensor = await this.sensorRepository.create(sensorData);
+    let newSensor = this.sensorRepository.create(sensorData);
     let query = await this.sensorRepository.save(newSensor);
     console.log("Sensor creardo");
     return res.send(query);
   }
 
-  async updateSensor(req: Request, res: Response) {
-    console.log("parametros: ", req.params);
+  public async updateSensor(req: Request, res: Response) {
     let { id } = req.params;
     let sensorData = req.body;
     let query = await this.sensorRepository.update(
@@ -40,7 +40,7 @@ export class SensoresControllerImpl implements SensoresController {
     return res.send(sensorData);
   }
 
-  async deleteSensor(req: Request, res: Response) {
+  public async deleteSensor(req: Request, res: Response) {
     let { id } = req.params;
     let findSensror = await this.sensorRepository.findOneBy({
       id: parseInt(id),

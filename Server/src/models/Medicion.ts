@@ -1,13 +1,11 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Medicion {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  name: string;
-  @Column()
   sensorName: string;
-  @Column()
+  @Column("decimal", { precision: 10, scale: 2 })
   temperature: number;
 }
