@@ -1,4 +1,26 @@
-<mat-form-field>
-  <mat-label>Nombre</mat-label>
-  <input matInput />
-</mat-form-field>
+<div class="root">
+  <div>
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput />
+    </mat-form-field>
+  </div>
+
+  <div class="area">
+    <mat-form-field>
+      <mat-label>Area</mat-label>
+      <input matInput />
+    </mat-form-field>
+  </div>
+
+  <div class="activeselect" >
+    <label for="active"
+      ><h5 style="font-weight: bolder">Activo?</h5></label
+    >
+    <p-inputSwitch id="active" />
+  </div>
+
+  <div class="saveButton" style="margin-left: 128px;">
+    <p-button severity="success" label="Guardar" />
+  </div>
+</div>

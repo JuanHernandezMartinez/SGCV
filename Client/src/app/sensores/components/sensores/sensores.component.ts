@@ -4,11 +4,12 @@ import { VolverButtonComponent } from '../../../shared/components/volver-button/
 import { SensoresCardComponent } from '../sensores-card/sensores-card.component';
 import { SensoresSocketService } from '../../services/sensores-socket.service';
 import { Medicion } from '../../models/Mediciones';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sensores',
   standalone: true,
-  imports: [ButtonModule, VolverButtonComponent, SensoresCardComponent],
+  imports: [ButtonModule, VolverButtonComponent, SensoresCardComponent, RouterModule],
   templateUrl: './sensores.component.html',
   styleUrl: './sensores.component.css',
 })
