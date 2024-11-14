@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity("sensores")
 export class Sensor extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

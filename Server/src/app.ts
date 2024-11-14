@@ -8,6 +8,7 @@ import ventilacionRoutes from "./routes/Ventilacion.routes";
 import sensoresRoutes from "./routes/Sensores.routes";
 import { setupSocket } from "./events/temperaturas";
 import { WebSocketServer } from "ws";
+import AuthRoutes from "./auth/auth.routes";
 
 const app = express();
 app.use(cors());
@@ -20,6 +21,7 @@ setupSocket(wss);
 app.use(temperaturasRoutes);
 app.use(ventilacionRoutes);
 app.use(sensoresRoutes);
+app.use(AuthRoutes);
 // conn();
 
 export default httpServer;
