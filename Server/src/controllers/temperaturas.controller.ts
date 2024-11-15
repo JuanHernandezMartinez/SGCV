@@ -9,14 +9,14 @@ export async function obtenerTemperaturas(req: any, res: any) {
     return res.send(medicion);
   } catch (error) {
     console.log("Error en el catch: ", error);
-    return res.sendStatus(500);
+    return res.status(500);
   }
 }
 
 export async function obtenerTemperatura(req: any, res: any) {
   console.log("controller obtener por id");
   console.log(req.params);
-  return res.sendStatus(200);
+  return res.status(200);
 }
 
 export async function guardarTemperatura(req: any, res: any) {

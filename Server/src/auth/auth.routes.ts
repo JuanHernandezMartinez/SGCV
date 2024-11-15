@@ -14,4 +14,11 @@ router.post(
   }
 );
 
+router.post(
+  "/api/auth/register",
+  async (req: Request, res: Response): Promise<any> => {
+    return await authServiceImpl.register(req, res);
+  }
+);
+
 export default router;
