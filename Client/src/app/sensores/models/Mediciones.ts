@@ -1,4 +1,4 @@
 export class Medicion {
-    name!: string
-    temp!: number
+    sensorName!: string
+    temperature!: number
 }

@@ -27,6 +27,7 @@ export class SensoresComponent implements OnInit, OnDestroy {
   listen(): void {
     this.sensoresSocket.medicionesEvent$.subscribe((data: Medicion[]) => {
       this.sensores = data;
+      console.log(data)
       if (this.sensores.length > 0) {
         this.calculateAvgTemp();
       }
@@ -36,7 +37,7 @@ export class SensoresComponent implements OnInit, OnDestroy {
   calculateAvgTemp(): void {
     let avg: number = 0;
     this.sensores.forEach((s) => {
-      avg = avg + s.temp;
+      avg = avg + s.temperature;
     });
     avg = avg / this.sensores.length;
     this.temperatura = parseFloat(avg.toFixed(2));

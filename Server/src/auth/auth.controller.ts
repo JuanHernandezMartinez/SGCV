@@ -77,16 +77,17 @@ export class AuthServiceImpl implements AuthService {
     return res.status(201).json({ messag: "Usuario creado con exito" });
   }
 
-  public verify(req: Request, res: Response, next: NextFunction) {
+  verify (req: Request, res: Response, next:NextFunction):void {
     let header = req.header("Authorization") || "";
-    console.log("header: ", req.header("Authorization"));
-    let token = header.trim();
+    console.log(header);
+    let [_bearer,token] = header.split('Bearer ');
+    token.trim();
     console.log("token tras el split:", token);
     if (!token) {
-      return res.status(401).json({ message: "Token not provied" });
+      return
     }
     try {
-      jwt.verify(token, secretKey, (err, verifiedJwt) => {
+      jwt.verify(token, secretKey, (err:any, verifiedJwt:any) => {
         if (err) {
           console.log("Error al verificar el token")
           return res.send(err.message);
@@ -95,7 +96,7 @@ export class AuthServiceImpl implements AuthService {
         next();
       });
     } catch (error) {
-      return res.status(403).json({ message: "Token not valid" });
+      return
     }
   }
 

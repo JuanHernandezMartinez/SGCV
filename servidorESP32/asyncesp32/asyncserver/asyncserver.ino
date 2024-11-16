@@ -9,7 +9,7 @@
 #include <ArduinoWebsockets.h>
 
 using namespace websockets;
-const char* websockets_server_host = "192.168.0.3";
+const char* websockets_server_host = "192.168.0.113";
 const uint16_t websockets_server_port = 4000;
 WebsocketsClient client;
 
@@ -76,17 +76,17 @@ void sendTemperature() {
   JsonArray mediciones = doc.createNestedArray("mediciones");
 
   JsonObject sensor1Data = mediciones.createNestedObject();
-  sensor1Data["name"] = "sensor 1";
-  sensor1Data["temp"] = sensor1.getTempCByIndex(0);
+  sensor1Data["sensorName"] = "sensor 1";
+  sensor1Data["temperature"] = sensor1.getTempCByIndex(0);
 
   JsonObject sensor2Data = mediciones.createNestedObject();
-  sensor2Data["name"] = "sensor 2";
-  sensor2Data["temp"] = sensor2.getTempCByIndex(0);
+  sensor2Data["sensorName"] = "sensor 2";
+  sensor2Data["temperature"] = sensor2.getTempCByIndex(0);
 
 
   JsonObject sensor3Data = mediciones.createNestedObject();
-  sensor3Data["name"] = "sensor 3";
-  sensor3Data["temp"] = sensor3.getTempCByIndex(0);
+  sensor3Data["sensorName"] = "sensor 3";
+  sensor3Data["temperature"] = sensor3.getTempCByIndex(0);
 
 
   String jsonMessage;

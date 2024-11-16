@@ -1,6 +1,5 @@
-import { Router } from "express";
+import { NextFunction, Router, Request, Response } from "express";
 import {
-  obtenerTemperatura,
   obtenerTemperaturas,
   guardarTemperatura,
 } from "../controllers/temperaturas.controller";
@@ -11,9 +10,22 @@ const router: Router = Router();
 const url = "/api";
 const usuariosRepository = AppDataSource.getRepository(Usuario);
 const authServiceImpl = new AuthServiceImpl(usuariosRepository);
+import jwt from "jsonwebtoken";
+const secretKey = "sgcvjwtsecret777";
 
-router.get("/api/temperaturas/:id", obtenerTemperatura);
-router.get("/api/temperaturas", async (req, res) => {authServiceImpl.verify(req, res, await obtenerTemperatura(req, res))});
-router.post("/api/temperaturas", guardarTemperatura);
+
+
+async function obtenerTemperatura(req: any, res: any) {
+  console.log("controller obtener por id");
+  console.log("parametrps", req.params);
+  return res.status(200).json({ message: "Temperatura obtenida correctamente" });
+}
+router.get("/api/temperaturas", authServiceImpl.verify, obtenerTemperatura);
+router.get("/api/temperaturas/:id", authServiceImpl.verify, obtenerTemperatura);
+router.post("/api/temperaturas", authServiceImpl.verify, guardarTemperatura);
+
+
+
+
 
 export default router;

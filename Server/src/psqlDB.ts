@@ -11,7 +11,9 @@ export const AppDataSource = new DataSource({
   password: "sgcvpasswd123",
   database: "sgcv",
   logging: true,
+  synchronize:true,
   entities: [Medicion, Sensor, Usuario],
   subscribers: [],
   migrations: [],
 });
+

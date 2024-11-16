@@ -13,15 +13,19 @@ export async function setupSocket(wss: WebSocketServer) {
 
     ws.on("message", async function message(data) {
       const text = data.toString(); // Convertimos el Buffer a texto
-      let parseJson: Medicion = JSON.parse(text);
+      let parseJson = JSON.parse(text);
       console.log("Mensaje recibido:", parseJson);
       try {
-        let medicion = medicionRepository.create(parseJson);
-        let saved = await medicionRepository.save(medicion);
+        // let medicion = medicionRepository.create(parseJson);
+        console.log("parsejson: ",parseJson)
+        parseJson.mediciones.forEach((m:Medicion)=>{
+          medicionRepository.save(m)
+        })
+        // let saved = await medicionRepository.save();
         // let parseData = JSON.stringify(parseJson);
         wss.clients.forEach(function each(client) {
           if (client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify(saved));
+            client.send(JSON.stringify(parseJson));
           }
         });
       } catch (error) {
