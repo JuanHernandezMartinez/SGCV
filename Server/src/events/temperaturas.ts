@@ -1,7 +1,6 @@
 // import { io } from "../app";
 import WebSocket, { WebSocketServer } from "ws";
 import { AppDataSource } from "../psqlDB";
-import { Sensor } from "../models/Sensor";
 import { Medicion } from "../models/Medicion";
 
 export async function setupSocket(wss: WebSocketServer) {

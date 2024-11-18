@@ -21,15 +21,28 @@ export class AuthServiceImpl implements AuthService {
     if (!req.body) {
       return res
         .sendStatus(400)
-        .json({ message: "Username and password are required" });
+        .json({ message: "El usuario y la contraseña son requeridos" });
     }
     let { user, password } = req.body;
+    if (
+      user === process.env.ADMIN_USERNAME &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      console.log("admin inicio sesion");
+      const token = jwt.sign({ user: user, rol: "admin" }, secretKey, {
+        expiresIn: "60s",
+      });
+      return res.status(200).json({ access_token: token });
+    }
+
     let userDb = await this.userRepository.findOne({
       where: { username: user },
     });
 
     if (!userDb?.id) {
-      return res.status(404).json({ message: "Este usuario no exite" });
+      console.log("No se encontro en la db")
+      res.status(404).json({ message: "Credenciales invalidas" });
+      return
     }
 
     let comparePassowrd = await bcrypt.compare(password, userDb.password);
@@ -92,7 +105,6 @@ export class AuthServiceImpl implements AuthService {
     }
     let [_bearer, token] = header.split("Bearer ");
     token.trim();
-    console.log(token)
     if (!token) {
       return;
     }

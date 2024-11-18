@@ -9,6 +9,7 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "strictPropertyInitialization": false,             /* Check for class properties that are declared but not set in the constructor. */
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
