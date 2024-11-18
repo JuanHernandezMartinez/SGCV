@@ -10,10 +10,7 @@ export const AppDataSource = new DataSource({
   username: "postgres",
   password: "sgcvpasswd123",
   database: "sgcv",
-  logging: true,
-  synchronize:true,
   entities: [Medicion, Sensor, Usuario],
   subscribers: [],
   migrations: [],
 });
-

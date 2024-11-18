@@ -3,7 +3,7 @@ import { Sensor } from "../models/Sensor";
 import { Repository } from "typeorm";
 
 interface SensoresController {
-  obtenerSensores(req: Request, res: Response): any;
+  obtenerSensores(req: Request, res: Response): Promise<Response<any>>;
 
   createSensor(req: Request, res: Response): any;
 
@@ -15,7 +15,7 @@ interface SensoresController {
 export class SensoresControllerImpl implements SensoresController {
   constructor(private sensorRepository: Repository<Sensor>) {}
 
-  public async obtenerSensores(req: Request, res: Response) {
+  public async obtenerSensores(req: Request, res: Response):Promise<Response<any>> {
     console.log("Obteniendo Sensores");
     let sensors: Sensor[] = await this.sensorRepository.find();
     return res.send(sensors);

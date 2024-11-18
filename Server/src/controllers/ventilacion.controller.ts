@@ -1,19 +1,35 @@
 import { Request, Response } from "express";
 
 export async function encenderVentilador(req: Request, res: Response) {
+  const esp32_url: string = "http://192.168.0.150/turn";
+
   try {
-    let onRequest = await fetch("http://192.168.1.150/turn", {
+    // Realizar la petición
+    const turnRequest = await fetch(esp32_url, {
       method: "POST",
-      body: JSON.stringify({ sexo: "si" }),
+      body: JSON.stringify({}),
+      headers: { "Content-Type": "application/json" },
     });
-    if (onRequest.status === 200) {
-      console.log("Encendido con exito");
-      return res.sendStatus(200);
+
+    // Verificar si el dispositivo respondió con un estado no exitoso
+    if (!turnRequest.ok) {
+      res.status(turnRequest.status).json({
+        message: `Error en el dispositivo: ${turnRequest.statusText} (${turnRequest.status})`,
+      });
+      return;
     }
-    console.log("Error en el try");
-    return res.sendStatus(500);
+
+    // Procesar la respuesta en caso de éxito
+    const data = await turnRequest.json();
+    res.status(200).json({ message: "Ventilador encendido", data });
+    return;
   } catch (error) {
-    console.log("Entro el catch");
-    return res.sendStatus(500);
+    // Manejar errores de red u otros problemas
+    console.error("Error al conectar con el dispositivo:", error);
+    res.status(500).json({
+      message:
+        "No se pudo conectar con el dispositivo. Verifica si está encendido o existe en la red.",
+    });
+    return;
   }
 }

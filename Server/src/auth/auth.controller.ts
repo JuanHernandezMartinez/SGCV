@@ -2,10 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { Repository } from "typeorm";
 import { Usuario } from "../models/Usuario";
 import jwt from "jsonwebtoken";
-import { UsuarioDto } from "../models/DTO/Usuario.dto";
 import bcrypt from "bcrypt";
 
-const secretKey = "sgcvjwtsecret777";
+const secretKey: string = "sgcvjwtsecret777";
 
 interface AuthService {
   login(req: Request, res: Response): any;
@@ -24,9 +23,7 @@ export class AuthServiceImpl implements AuthService {
         .sendStatus(400)
         .json({ message: "Username and password are required" });
     }
-    console.log(req.body);
     let { user, password } = req.body;
-    console.log(user);
     let userDb = await this.userRepository.findOne({
       where: { username: user },
     });
@@ -34,6 +31,7 @@ export class AuthServiceImpl implements AuthService {
     if (!userDb?.id) {
       return res.status(404).json({ message: "Este usuario no exite" });
     }
+
     let comparePassowrd = await bcrypt.compare(password, userDb.password);
 
     if (!comparePassowrd) {
@@ -43,9 +41,8 @@ export class AuthServiceImpl implements AuthService {
     const token = jwt.sign(
       { user: userDb.username, rol: userDb.rol },
       secretKey,
-      { expiresIn: "1h" }
+      { expiresIn: "30m" }
     );
-    console.log("creando el token: ", token);
     return res.status(200).json({ access_token: token });
   }
 
@@ -64,6 +61,14 @@ export class AuthServiceImpl implements AuthService {
         .json({ message: "Todos los campos son requeridos" });
     }
 
+    let alreadyExists = await this.userRepository.findOneBy({ username: user });
+
+    if (alreadyExists?.id) {
+      return res
+        .status(400)
+        .json({ message: "Este usuario no esta disponible" });
+    }
+
     let hashedPassword = await bcrypt.hash(password, 10);
 
     let newUser = this.userRepository.create({
@@ -71,32 +76,38 @@ export class AuthServiceImpl implements AuthService {
       password: hashedPassword,
       rol: rol,
     });
-    let userDB = await this.userRepository.save(newUser);
-    console.log(userDB);
-
-    return res.status(201).json({ messag: "Usuario creado con exito" });
+    try {
+      let userDB = await this.userRepository.save(newUser);
+      return res.status(201).json({ message: "Usuario creado con exito" });
+    } catch (error) {
+      return res.status(500).json({ message: "Error al crear el usuario" });
+    }
   }
 
-  verify (req: Request, res: Response, next:NextFunction):void {
+  verify(req: Request, res: Response, next: NextFunction): void {
     let header = req.header("Authorization") || "";
-    console.log(header);
-    let [_bearer,token] = header.split('Bearer ');
+    if (!header || header === "") {
+      res.status(401).json({ message: "No autorizado" });
+      return;
+    }
+    let [_bearer, token] = header.split("Bearer ");
     token.trim();
-    console.log("token tras el split:", token);
+    console.log(token)
     if (!token) {
-      return
+      return;
     }
     try {
-      jwt.verify(token, secretKey, (err:any, verifiedJwt:any) => {
+      jwt.verify(token, secretKey, (err: any, verifiedJwt: any) => {
         if (err) {
-          console.log("Error al verificar el token")
-          return res.send(err.message);
+          console.log("Error al verificar el token");
+          res.status(401).json({ message: err.message });
+          return;
         }
-        console.log("verificado correctamente:", verifiedJwt);
         next();
       });
     } catch (error) {
-      return
+      res.status(401).json({ message: "Error al verificar el token" });
+      return;
     }
   }
 
@@ -118,14 +129,4 @@ export class AuthServiceImpl implements AuthService {
 
     return true;
   }
-}
-
-interface UserPayload {
-  data: {
-    user: string;
-    rol: string;
-    iat: string;
-    exp: string;
-  };
-  // otros campos que tu payload de JWT pueda tener
 }
