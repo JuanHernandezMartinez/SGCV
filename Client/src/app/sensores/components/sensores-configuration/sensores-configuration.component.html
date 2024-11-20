@@ -1,26 +1,22 @@
-<div class="root">
-  <div class="Boton-volver">
-    <p-button label="Volver" severity="contrast" routerLink="/sensores" />
-  </div>
-  <div class="container-ventilador">
-    @for (item of ventiladores; track $index) {
-    <mat-card class="ventilador-card" style="margin-bottom: 10px">
-      <div
-        class="ventilador"
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        "
-      >
-        <p>{{ item }}</p>
-        <p-inputSwitch (onChange)="post()"></p-inputSwitch>
-      </div>
-    </mat-card>
-    }
-  </div>
+<h1 mat-dialog-title>{{ data ? 'Editar Sensor' : 'Agregar Sensor' }}</h1>
 
-  <div class="boton-add">
-    <p-button label="Añadir sensor +" severity="info" (onClick)="openForm()" />
+<form [formGroup]="sensorForm" (ngSubmit)="onSave()">
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre" required />
+    <mat-error *ngIf="sensorForm.get('nombre')?.hasError('required')">El nombre es obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Descripción</mat-label>
+    <input matInput formControlName="descripcion" required />
+    <mat-error *ngIf="sensorForm.get('descripcion')?.hasError('required')">La descripción es obligatoria</mat-error>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="activo">Activo</mat-checkbox>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-button color="primary" type="submit" [disabled]="sensorForm.invalid">Guardar</button>
   </div>
-</div>
+</form>
