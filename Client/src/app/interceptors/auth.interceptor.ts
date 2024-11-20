@@ -13,7 +13,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
   return next(authReq).pipe(
     catchError((error) => {
-      if (error.status === 401 && error.error?.message === 'jwt expired') {
+      if (
+        (error.status === 401 && error.error?.message === 'jwt expired') ||
+        error.error?.message === 'No autorizado'
+      ) {
         // Manejar el token expirado
         console.error('El token ha expirado. redireccionando al login');
         // Ejemplo: Redirigir al login o intentar renovar el token
