@@ -1,0 +1,24 @@
+<div class="root">
+    <div class="Boton-volver">
+      <p-button label="Volver" severity="contrast" routerLink="/sensores" />
+    </div>
+  
+    <div class="container-ventilador">
+      <mat-card class="ventilador-card" *ngFor="let item of ventiladores; let i = index" style="margin-bottom: 10px">
+        <div class="ventilador" style="display: flex; justify-content: space-between; align-items: center;">
+          <p>{{ item.name }}</p>
+          <p-inputSwitch (onChange)="toggleSensor(item)"></p-inputSwitch>
+        </div>
+        
+        <div class="actions">
+          <p-button label="Editar" severity="primary" (onClick)="editSensor(i)"></p-button>
+          <p-button label="Eliminar" severity="danger" (onClick)="deleteSensor(i)"></p-button>
+        </div>
+      </mat-card>
+    </div>
+  
+    <div class="boton-add">
+      <p-button label="Añadir sensor +" severity="info" (onClick)="openForm()" />
+    </div>
+  </div>
+  
