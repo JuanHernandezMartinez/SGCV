@@ -1,7 +1,12 @@
 <div class="overlay">
-  <p-button class="close-button" label="X" severity="contrast" (click)="cerrarFormulario()" />
+  <p-button
+    class="close-button"
+    label="X"
+    severity="contrast"
+    (click)="cerrarFormulario()"
+  />
 
-  <div class="user-form">
+  <div class="user-form" style="width: 30%">
     <h3>Usuarios</h3>
     <form>
       <div>
@@ -45,8 +50,15 @@
         />
       </div>
       <div style="margin-top: 10px">
-        <button type="button" (click)="enviarDatos()">Registrar Usuario </button>
+        <button type="button" (click)="enviarDatos()">Registrar Usuario</button>
       </div>
     </form>
   </div>
+
+  <mat-card style="width: 70%; height: 100%">
+    <h1>Usuarios activos</h1>
+    @for (item of [1,2,3,4]; track $index) {
+    <p>usuario:{{ item }}</p>
+    }
+  </mat-card>
 </div>

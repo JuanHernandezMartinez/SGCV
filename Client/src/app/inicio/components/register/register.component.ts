@@ -5,11 +5,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, MatCardModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

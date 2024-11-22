@@ -33,6 +33,6 @@ export class HomeComponent {
 
   public abrirFormulario() {
     console.log('algo anda mal');
-    const dialog = this.dialog.open(RegisterComponent);
+    const dialog = this.dialog.open(RegisterComponent, { width: '80vw' });
   }
 }
