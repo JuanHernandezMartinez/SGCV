@@ -42,6 +42,5 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem('access_token');
-    window.location.href = '/';
   }
 }
