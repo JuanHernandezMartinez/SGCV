@@ -30,7 +30,7 @@ export class AuthServiceImpl implements AuthService {
     ) {
       console.log("admin inicio sesion");
       const token = jwt.sign({ user: user, rol: "admin" }, secretKey, {
-        expiresIn: "60s",
+        expiresIn: "5m",
       });
       return res.status(200).json({ access_token: token });
     }
@@ -54,7 +54,7 @@ export class AuthServiceImpl implements AuthService {
     const token = jwt.sign(
       { user: userDb.username, rol: userDb.rol },
       secretKey,
-      { expiresIn: "30m" }
+      { expiresIn: "5m" }
     );
     return res.status(200).json({ access_token: token });
   }
