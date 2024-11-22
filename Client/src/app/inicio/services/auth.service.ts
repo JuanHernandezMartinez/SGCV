@@ -38,7 +38,11 @@ export class AuthService {
     );
   }
 
-  public register() {}
+  public register (user: string, password: string, confirmPassword: string, rol: string)
+      {
+      let loginRequest = this.http.post(`${this.url}/register`, { user, password, confirmPassword, rol });
+      return loginRequest
+  }
 
   public logout() {
     localStorage.removeItem('access_token');
