@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormularioSensoresComponent } from '../formulario-sensores/formulario-sensores.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export interface Sensor {
   id: number;
   nombre: string;
@@ -10,6 +12,8 @@ export interface Sensor {
 
 @Component({
   selector: 'app-sensores-configuration',
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './sensores-configuration.component.html',
   styleUrls: ['./sensores-configuration.component.css'],
 })
