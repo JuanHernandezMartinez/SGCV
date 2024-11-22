@@ -37,6 +37,7 @@
     </div>
     }
   </div>
+
   <div style="background-color: #f0efef; border-radius: 0px 30px 30px 0px">
     <div class="info-container">
       <p>{{ sensor.temperature }} °</p>
@@ -48,6 +49,7 @@
           [ngStyle]="{ 'background-color': sensor.status ? '#70FF00' : 'red' }"
         ></div>
         <p>{{ sensor?.status ? "Activo" : "Inactivo" }}</p>
+        
       </div>
     </div>
   </div>

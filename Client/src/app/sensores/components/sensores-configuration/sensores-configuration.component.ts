@@ -1,76 +1,44 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, inject } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { VolverButtonComponent } from '../../../shared/components/volver-button/volver-button.component';
+import { ButtonModule } from 'primeng/button';
+import { RouterModule } from '@angular/router';
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { FormularioSensoresComponent } from '../formulario-sensores/formulario-sensores.component';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-export interface Sensor {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  activo: boolean;
-}
 
 @Component({
   selector: 'app-sensores-configuration',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    MatCardModule,
+    InputSwitchModule,
+    VolverButtonComponent,
+    ButtonModule,
+    RouterModule,
+    MatDialogModule,
+    FormularioSensoresComponent,
+  ],
   templateUrl: './sensores-configuration.component.html',
-  styleUrls: ['./sensores-configuration.component.css'],
+  styleUrl: './sensores-configuration.component.css',
 })
 export class SensoresConfigurationComponent {
-  sensores: Sensor[] = [
-    {
-      id: 1,
-      nombre: 'Sensor 1',
-      descripcion: 'Descripción del sensor 1',
-      activo: true,
-    },
-    {
-      id: 2,
-      nombre: 'Sensor 2',
-      descripcion: 'Descripción del sensor 2',
-      activo: false,
-    },
-  ];
+  ventiladores = [];
+  // private dialogRef=inject(MatDialogRef<FormularioSensoresComponent>)
 
   constructor(private dialogRef: MatDialog) {}
 
-  // Abrir el formulario para agregar o editar un sensor
-  openForm(sensor?: Sensor): void {
-    const dialogRef = this.dialogRef.open(FormularioSensoresComponent, {
-      width: '500px',
-      data: sensor,
+  post(): void {}
+
+  openForm(): void {
+    this.dialogRef.open(FormularioSensoresComponent, {
+      width: '1000px',
+      hasBackdrop: false,
+      panelClass: 'custom-dialog',
     });
-
-    dialogRef.afterClosed().subscribe((result: Sensor) => {
-      if (result) {
-        if (sensor) {
-          // Editar sensor
-          this.updateSensor(result);
-        } else {
-          // Agregar nuevo sensor
-          this.addSensor(result);
-        }
-      }
-    });
-  }
-
-  // Agregar un nuevo sensor
-  addSensor(sensor: Sensor): void {
-    const newSensor = { ...sensor, id: this.sensores.length + 1 }; // Asignar un nuevo ID
-    this.sensores.push(newSensor);
-  }
-
-  // Actualizar un sensor existente
-  updateSensor(updatedSensor: Sensor): void {
-    const index = this.sensores.findIndex((s) => s.id === updatedSensor.id);
-    if (index !== -1) {
-      this.sensores[index] = updatedSensor;
-    }
-  }
-
-  // Eliminar un sensor
-  deleteSensor(id: number): void {
-    this.sensores = this.sensores.filter((s) => s.id !== id);
   }
 }
