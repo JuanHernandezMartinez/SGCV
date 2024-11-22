@@ -3,26 +3,21 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { RegisterComponent } from '../register/register.component';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, FormsModule, ButtonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  constructor(
-    private router: Router,
-    private dialogRef: MatDialog,
-    private authService: AuthService
-  ) {}
+  constructor(private router: Router) {}
+  mostrarFormulario = false;
+  usuario = { nombre: '', password: '' };
 
   salir(): void {
-    this.authService.logout();
+    this.router.navigateByUrl('/');
   }
 
   sensores(): void {
@@ -38,8 +33,23 @@ export class HomeComponent {
   }
 
   abrirFormulario() {
-    this.dialogRef.open(RegisterComponent, {
-      width: '1000px',
-    });
+    this.mostrarFormulario = true;
+  }
+
+  cerrarFormulario() {
+    this.mostrarFormulario = false;
+  }
+
+  agregarUsuario() {
+    console.log('Usuario agregado:', this.usuario.nombre);
+    console.log('Contraseña:', this.usuario.password);
+    this.usuario = { nombre: '', password: '' };
+    this.cerrarFormulario();
+  }
+
+  eliminarUsuario() {
+    console.log('Usuario eliminado:', this.usuario.nombre);
+    this.usuario = { nombre: '', password: '' }; 
+    this.cerrarFormulario(); 
   }
 }

@@ -1,21 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+  styleUrl: './register.component.css'
 })
-export class RegisterComponent implements OnInit {
-  
-  mostrarFormulario = false;
-  usuario = { nombre: '', password: '', confirmPassword: '', rol: '' };
+export class RegisterComponent {
 
-  roles: string[] = [];
-
-  ngOnInit(): void {
-    
-  }
 }
