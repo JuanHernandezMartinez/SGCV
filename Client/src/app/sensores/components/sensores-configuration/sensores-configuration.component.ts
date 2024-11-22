@@ -1,18 +1,12 @@
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { FormularioSensoresComponent } from '../formulario-sensores/formulario-sensores.component';
 export interface Sensor {
   id: number;
   nombre: string;
   descripcion: string;
   activo: boolean;
 }
-
-import { Component } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { ButtonModule } from 'primeng/button';
-import { RouterModule } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { FormularioSensoresComponent } from '../formulario-sensores/formulario-sensores.component';
-import { Sensor } from './sensor.model';
 
 @Component({
   selector: 'app-sensores-configuration',
@@ -21,8 +15,18 @@ import { Sensor } from './sensor.model';
 })
 export class SensoresConfigurationComponent {
   sensores: Sensor[] = [
-    { id: 1, nombre: 'Sensor 1', descripcion: 'Descripción del sensor 1', activo: true },
-    { id: 2, nombre: 'Sensor 2', descripcion: 'Descripción del sensor 2', activo: false }
+    {
+      id: 1,
+      nombre: 'Sensor 1',
+      descripcion: 'Descripción del sensor 1',
+      activo: true,
+    },
+    {
+      id: 2,
+      nombre: 'Sensor 2',
+      descripcion: 'Descripción del sensor 2',
+      activo: false,
+    },
   ];
 
   constructor(private dialogRef: MatDialog) {}
@@ -55,7 +59,7 @@ export class SensoresConfigurationComponent {
 
   // Actualizar un sensor existente
   updateSensor(updatedSensor: Sensor): void {
-    const index = this.sensores.findIndex(s => s.id === updatedSensor.id);
+    const index = this.sensores.findIndex((s) => s.id === updatedSensor.id);
     if (index !== -1) {
       this.sensores[index] = updatedSensor;
     }
@@ -63,6 +67,6 @@ export class SensoresConfigurationComponent {
 
   // Eliminar un sensor
   deleteSensor(id: number): void {
-    this.sensores = this.sensores.filter(s => s.id !== id);
+    this.sensores = this.sensores.filter((s) => s.id !== id);
   }
 }
