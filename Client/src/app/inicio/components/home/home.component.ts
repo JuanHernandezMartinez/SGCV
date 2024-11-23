@@ -32,7 +32,9 @@ export class HomeComponent {
   }
 
   public abrirFormulario() {
-    console.log('algo anda mal');
-    const dialog = this.dialog.open(RegisterComponent, { width: '80vw' });
+    this.dialog.open(RegisterComponent, {
+      width: '90vw',
+      maxWidth: 'none',
+    });
   }
 }

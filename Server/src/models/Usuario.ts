@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Role } from "./Rol";
 
 @Entity("usuarios")
 export class Usuario {

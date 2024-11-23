@@ -124,10 +124,11 @@ export class AuthServiceImpl implements AuthService {
   }
 
   public async obtenerUsuarios(_req: Request, res: Response): Promise<any> {
-    let usuarios = await this.userRepository.find()
-    console.log(usuarios)
-    res.status(200).json({usuarios});
-    return
+    let usuarios = await this.userRepository.find({
+      select: ["id", "username", "rol"],
+    });
+    res.status(200).json({ usuarios });
+    return;
   }
 
   private checkData(
@@ -148,4 +149,9 @@ export class AuthServiceImpl implements AuthService {
 
     return true;
   }
+}
+
+interface userDTO {
+  username: string;
+  rol: string;
 }

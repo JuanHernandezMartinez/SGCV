@@ -2,13 +2,19 @@
   position: relative;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
-
+  width: 100%;
 }
 
 .close-button {
   position: absolute;
-  top: 0%;
-  right: 5%;
+  top: 1%;
+  right: 2%;
+  z-index: 1100;
+}
+
+.userCard {
+  height: 80vh;
+  width: 60vw;
 }
 
 .user-form {

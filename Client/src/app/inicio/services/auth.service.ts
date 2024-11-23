@@ -48,6 +48,10 @@ export class AuthService {
     return this.http.get(`${environment.BASE_ENDPOINT}/usuarios`)
   }
 
+  public consultarRoles(){
+    
+  }
+
   public logout() {
     localStorage.removeItem('access_token');
   }

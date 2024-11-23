@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { MatCardModule } from '@angular/material/card';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
     ReactiveFormsModule,
     ButtonModule,
     MatCardModule,
+    TreeSelectModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -25,13 +27,14 @@ export class RegisterComponent implements OnInit {
   mostrarFormulario = false;
   usuario = { nombre: '', password: '', confirmPassword: '', rol: '' };
   usuarios: any[] = [];
+  roles: [] = [];
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.consultarUsuarios().subscribe((data) => {
       console.log(data.usuarios);
       this.usuarios = data.usuarios;
-      console.log(this.usuario)
+      console.log(this.usuario);
     });
   }
 
