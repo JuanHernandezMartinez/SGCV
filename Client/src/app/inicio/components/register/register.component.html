@@ -57,8 +57,11 @@
 
   <mat-card style="width: 70%; height: 100%">
     <h1>Usuarios activos</h1>
-    @for (item of [1,2,3,4]; track $index) {
-    <p>usuario:{{ item }}</p>
+    @for (item of usuarios; track $index) {
+    <div>
+      <p>Usuario:{{ item.username }}</p>
+      <span>Rol: {{ item.rol }}</span>
+    </div>
     }
   </mat-card>
 </div>

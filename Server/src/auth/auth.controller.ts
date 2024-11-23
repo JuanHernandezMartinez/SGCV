@@ -30,7 +30,7 @@ export class AuthServiceImpl implements AuthService {
     ) {
       console.log("admin inicio sesion");
       const token = jwt.sign({ user: user, rol: "admin" }, secretKey, {
-        expiresIn: "60s",
+        expiresIn: "30m",
       });
       return res.status(200).json({ access_token: token });
     }
@@ -40,9 +40,9 @@ export class AuthServiceImpl implements AuthService {
     });
 
     if (!userDb?.id) {
-      console.log("No se encontro en la db")
+      console.log("No se encontro en la db");
       res.status(404).json({ message: "Credenciales invalidas" });
-      return
+      return;
     }
 
     let comparePassowrd = await bcrypt.compare(password, userDb.password);
@@ -109,7 +109,7 @@ export class AuthServiceImpl implements AuthService {
       return;
     }
     try {
-      jwt.verify(token, secretKey, (err: any, verifiedJwt: any) => {
+      jwt.verify(token, secretKey, (err: any, _verifiedJwt: any) => {
         if (err) {
           console.log("Error al verificar el token");
           res.status(401).json({ message: err.message });
@@ -121,6 +121,13 @@ export class AuthServiceImpl implements AuthService {
       res.status(401).json({ message: "Error al verificar el token" });
       return;
     }
+  }
+
+  public async obtenerUsuarios(_req: Request, res: Response): Promise<any> {
+    let usuarios = await this.userRepository.find()
+    console.log(usuarios)
+    res.status(200).json({usuarios});
+    return
   }
 
   private checkData(

@@ -44,6 +44,10 @@ export class AuthService {
       return loginRequest
   }
 
+  public consultarUsuarios():Observable<any>{
+    return this.http.get(`${environment.BASE_ENDPOINT}/usuarios`)
+  }
+
   public logout() {
     localStorage.removeItem('access_token');
   }

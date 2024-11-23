@@ -14,11 +14,12 @@ router.post(
   }
 );
 
-router.post(
-  "/api/auth/register",
-  async (req: Request, res: Response): Promise<any> => {
-    return await authServiceImpl.register(req, res);
-  }
-);
+router.post("/api/auth/register", authServiceImpl.verify, async (req, res) => {
+  await authServiceImpl.register(req, res);
+});
+
+router.get("/api/usuarios", authServiceImpl.verify, async (req, res) => {
+  await authServiceImpl.obtenerUsuarios(req, res);
+});
 
 export default router;

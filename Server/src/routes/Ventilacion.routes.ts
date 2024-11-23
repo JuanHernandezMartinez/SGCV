@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import { encenderVentilador } from "../controllers/ventilacion.controller";
 import { AppDataSource } from "../psqlDB";
 import { Usuario } from "../models/Usuario";
