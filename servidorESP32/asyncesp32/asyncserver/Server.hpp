@@ -12,16 +12,6 @@ extern DallasTemperature sensor1;
 extern DallasTemperature sensor2;
 extern DallasTemperature sensor3;
 
-
-// bool prendido = false;
-// Sensor s1(1, 4, false);
-// Sensor s2(2, 5, false);
-// Sensor s3(3, 6, false);
-// Sensor s4(4, 7, false);
-// Sensor s5(5, 8, false);
-// Sensor* sensorslist[] = { &s1, &s2, &s3, &s4, &s5 };
-
-
 AsyncWebServer server(80);
 void InitServer() {
 
@@ -30,23 +20,23 @@ void InitServer() {
   //   request->send(200, "application/json", jsonResponse);
   // });
 
-  server.on("/temperaturas", HTTP_GET, [](AsyncWebServerRequest *request) {
-    sensor1.requestTemperatures();
-    sensor2.requestTemperatures();
-    sensor3.requestTemperatures();
-    DynamicJsonDocument doc(1024);
-    JsonArray temperatures = doc.createNestedArray("temperatures");
-    temperatures.add(sensor2.getTempCByIndex(0));
-    temperatures.add(sensor3.getTempCByIndex(0));
-    temperatures.add(sensor1.getTempCByIndex(0));
+  // server.on("/temperaturas", HTTP_GET, [](AsyncWebServerRequest *request) {
+  //   sensor1.requestTemperatures();
+  //   sensor2.requestTemperatures();
+  //   sensor3.requestTemperatures();
+  //   DynamicJsonDocument doc(1024);
+  //   JsonArray temperatures = doc.createNestedArray("temperatures");
+  //   temperatures.add(sensor2.getTempCByIndex(0));
+  //   temperatures.add(sensor3.getTempCByIndex(0));
+  //   temperatures.add(sensor1.getTempCByIndex(0));
 
-    // Serializar el documento JSON en un string
-    String jsonResponse;
-    serializeJson(doc, jsonResponse);
+  //   // Serializar el documento JSON en un string
+  //   String jsonResponse;
+  //   serializeJson(doc, jsonResponse);
 
-    // Enviar la respuesta en formato JSON
-    request->send(200, "application/json", jsonResponse);
-  });
+  //   // Enviar la respuesta en formato JSON
+  //   request->send(200, "application/json", jsonResponse);
+  // });
 
   server.on(
     "/turn", HTTP_POST, [](AsyncWebServerRequest *request) {},

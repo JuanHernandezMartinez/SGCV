@@ -22,4 +22,9 @@ router.get("/api/usuarios", authServiceImpl.verify, async (req, res) => {
   await authServiceImpl.obtenerUsuarios(req, res);
 });
 
+router.get("/api/roles", authServiceImpl.verify, async (req, res) => {
+  await authServiceImpl.getRoles(req, res);
+});
+
+
 export default router;

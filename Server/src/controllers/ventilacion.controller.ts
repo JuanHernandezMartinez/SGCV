@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 
 export async function encenderVentilador(req: Request, res: Response) {
-  const esp32_url: string = "http://192.168.0.150/turn";
+  const esp32_url: string =
+    process.env.ESP32_URL || "http://192.168.0.150";
 
   try {
-    // Realizar la petición
-    const turnRequest = await fetch(esp32_url, {
+    // Realizar la petición al esp32 para encender o apagar
+    const turnRequest = await fetch(`${esp32_url}/turn`, {
       method: "POST",
       body: JSON.stringify({}),
       headers: { "Content-Type": "application/json" },
@@ -18,7 +19,6 @@ export async function encenderVentilador(req: Request, res: Response) {
       });
       return;
     }
-
     // Procesar la respuesta en caso de éxito
     const data = await turnRequest.json();
     res.status(200).json({ message: "Ventilador encendido", data });

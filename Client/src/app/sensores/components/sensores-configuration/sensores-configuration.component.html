@@ -2,11 +2,10 @@
   <div class="Boton-volver">
     <p-button label="Volver" severity="contrast" routerLink="/sensores" />
   </div>
-  
+
   <div class="container-ventilador">
-    @for (item of ventiladores; track $index) {
+    @for (sensor of sensores; track $index) {
     <mat-card class="ventilador-card" style="margin-bottom: 10px">
-      
       <div
         class="ventilador"
         style="
@@ -15,17 +14,19 @@
           align-items: center;
         "
       >
-        <p>{{ item }}</p>
-        <p-inputSwitch (onChange)="post()"></p-inputSwitch>
+        <p>{{ sensor.sensorName }}</p>
+        <p>{{ sensor.basicName }}</p>
+        <p>{{ sensor.area }}</p>
+        <div>
+          <p-button label="Editar" severity="info" />
+          <p-button label="Borrar" severity="danger" (onClick)="eliminar(sensor.id)" />
+        </div>
       </div>
     </mat-card>
     }
   </div>
 
   <div class="boton-add">
-   
     <p-button label="Añadir sensor +" severity="info" (onClick)="openForm()" />
-    
   </div>
-  
 </div>

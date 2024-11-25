@@ -7,6 +7,12 @@ import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { MatCardModule } from '@angular/material/card';
 import { TreeSelectModule } from 'primeng/treeselect';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
+class Rol {
+  name: string;
+}
 
 @Component({
   selector: 'app-register',
@@ -17,7 +23,9 @@ import { TreeSelectModule } from 'primeng/treeselect';
     ReactiveFormsModule,
     ButtonModule,
     MatCardModule,
-    TreeSelectModule
+    TreeSelectModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -27,18 +35,31 @@ export class RegisterComponent implements OnInit {
   mostrarFormulario = false;
   usuario = { nombre: '', password: '', confirmPassword: '', rol: '' };
   usuarios: any[] = [];
-  roles: [] = [];
+  roles: Rol[] = [];
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.buscarUsuarios();
+    this.buscarRoles();
+  }
+
+  private buscarUsuarios() {
     this.authService.consultarUsuarios().subscribe((data) => {
-      console.log(data.usuarios);
       this.usuarios = data.usuarios;
-      console.log(this.usuario);
+    });
+  }
+  private buscarRoles() {
+    this.authService.consultarRoles().subscribe((data) => {
+      if (data.roles.length >= 1) {
+        console.log('Asignando roles');
+        this.roles = data.roles;
+      }
+
+      console.log(this.roles);
     });
   }
 
-  public enviarDatos() {
+  public registrar() {
     this.authService
       .register(
         this.usuario.nombre,
@@ -49,6 +70,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         (data) => {
           console.log(data);
+          this.buscarUsuarios();
           Swal.fire({
             icon: 'success',
             title: 'Usuario Creado Con Exito.',

@@ -7,53 +7,49 @@
   />
   <div class="user-form" style="width: 40vw">
     <h3>Usuarios</h3>
-    <form>
-      <div>
-        <label for="nombre">Nombre del Usuario:</label>
-        <input
-          autocomplete="false"
-          type="text"
-          id="nombre"
-          [(ngModel)]="usuario.nombre"
-          name="nombre"
-          required
-        />
-      </div>
-      <div>
-        <label for="password">Contraseña:</label>
-        <input
-          autocomplete="false"
-          type="password"
-          id="password"
-          [(ngModel)]="usuario.password"
-          name="password"
-          required
-        />
-      </div>
-      <div>
-        <label for="confirmPassword">Repetir contraseña:</label>
-        <input
-          autocomplete="false"
-          type="password"
-          id="confirmPassword"
-          [(ngModel)]="usuario.confirmPassword"
-          name="confirmPassword"
-          required
-        />
-      </div>
-      <div>
-        <p-treeSelect
-          class="md:w-20rem w-full"
-          containerStyleClass="w-full"
-          [(ngModel)]="usuario.rol"
-          [options]="roles"
-          placeholder="Rol"
-        />
-      </div>
-      <div style="margin-top: 10px">
-        <p-button severity="primary" label="Registrar" (click)="enviarDatos()"/>
-      </div>
-    </form>
+
+    <div>
+      <label>Nombre del Usuario:</label>
+      <input
+        autocomplete="off"
+        type="text"
+        [(ngModel)]="usuario.nombre"
+        required
+      />
+    </div>
+    <div>
+      <label>Contraseña:</label>
+      <input
+        autocomplete="off"
+        type="password"
+        [(ngModel)]="usuario.password"
+        required
+      />
+    </div>
+    <div>
+      <label>Repetir contraseña:</label>
+      <input
+        autocomplete="off"
+        type="password"
+        id="confirmPassword"
+        [(ngModel)]="usuario.confirmPassword"
+        name="confirmPassword"
+        required
+      />
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Choose an option</mat-label>
+        <mat-select [(ngModel)]="usuario.rol">
+          @for (rol of roles; track $index) {
+          <mat-option [value]="rol?.name">{{ rol?.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div style="margin-top: 10px">
+      <p-button severity="primary" label="Registrar" (click)="registrar()" />
+    </div>
   </div>
 
   <mat-card class="userCard">

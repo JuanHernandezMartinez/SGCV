@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import express from "express";
 import cors from "cors";
-// import { conn } from "./psqlDB.js";
 import http from "http";
 import temperaturasRoutes from "./routes/Temperaturas.routes";
 import ventilacionRoutes from "./routes/Ventilacion.routes";
@@ -24,6 +23,5 @@ app.use(temperaturasRoutes);
 app.use(ventilacionRoutes);
 app.use(sensoresRoutes);
 app.use(AuthRoutes);
-// conn();
 
 export default httpServer;

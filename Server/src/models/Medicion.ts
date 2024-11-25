@@ -5,7 +5,7 @@ export class Medicion {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
-  sensorName: string;
+  basicName: string;
   @Column("decimal", { precision: 10, scale: 2 })
   temperature: number;
 }

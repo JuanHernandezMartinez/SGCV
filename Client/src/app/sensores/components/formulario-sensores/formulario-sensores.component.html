@@ -1,26 +1,55 @@
 <div class="root">
   <div>
-    <mat-form-field>
-      <mat-label>Nombre</mat-label>
-      <input matInput />
-    </mat-form-field>
-  </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="sensorName" />
+      </mat-form-field>
+    </div>
 
-  <div class="area">
-    <mat-form-field>
-      <mat-label>Area</mat-label>
-      <input matInput />
-    </mat-form-field>
-  </div>
+    <div class="area">
+      <mat-form-field>
+        <mat-label>Area</mat-label>
+        <input matInput [(ngModel)]="area" />
+      </mat-form-field>
+    </div>
 
-  <div class="activeselect" >
-    <label for="active"
-      ><h5 style="font-weight: bolder">Activo?</h5></label
-    >
-    <p-inputSwitch id="active" />
-  </div>
+    <div class="imagen" style="margin-bottom: 20px">
+      <button mat-fab extended color="primary" (click)="triggerInput()">
+        Seleccionar imagen
+      </button>
+      <input
+        #selectImage
+        hidden
+        type="file"
+        (change)="onBasicUploadAuto($event)"
+      />
+    </div>
 
-  <div class="saveButton" style="margin-left: 128px;">
-    <p-button severity="success" label="Guardar" />
+    <div class="imagen">
+      <mat-form-field>
+        <mat-label>Sensor en el invernadero</mat-label>
+        <mat-select [(ngModel)]="basicName">
+          @for (s of sensoresEsp; track $index) {
+          <mat-option [value]="s.basicName">{{ s.basicName }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <div class="activeselect">
+        <label for="active"><h5 style="font-weight: bolder">Activo?</h5></label>
+        <p-inputSwitch id="active" [(ngModel)]="status" />
+      </div>
+    </div>
+
+    <div class="saveButton">
+      <p-button
+        severity="success"
+        label="Guardar"
+        (onClick)="registrarSensor()"
+      />
+    </div>
   </div>
 </div>

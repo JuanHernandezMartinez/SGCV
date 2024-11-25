@@ -48,8 +48,8 @@ export class AuthService {
     return this.http.get(`${environment.BASE_ENDPOINT}/usuarios`)
   }
 
-  public consultarRoles(){
-    
+  public consultarRoles():Observable<any>{
+    return this.http.get(`${environment.BASE_ENDPOINT}/roles`)
   }
 
   public logout() {

@@ -1,15 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { VolverButtonComponent } from '../../../shared/components/volver-button/volver-button.component';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
-import {
-  MatDialog,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormularioSensoresComponent } from '../formulario-sensores/formulario-sensores.component';
+import { SensoresService } from '../../services/sensores.service';
+import { Sensor } from '../../models/Sensor';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sensores-configuration',
@@ -17,28 +15,66 @@ import { FormularioSensoresComponent } from '../formulario-sensores/formulario-s
   imports: [
     MatCardModule,
     InputSwitchModule,
-    VolverButtonComponent,
     ButtonModule,
     RouterModule,
     MatDialogModule,
-    FormularioSensoresComponent,
   ],
   templateUrl: './sensores-configuration.component.html',
   styleUrl: './sensores-configuration.component.css',
 })
-export class SensoresConfigurationComponent {
-  ventiladores = [];
-  // private dialogRef=inject(MatDialogRef<FormularioSensoresComponent>)
+export class SensoresConfigurationComponent implements OnInit {
+  sensores: Sensor[] = [];
+  private sensoresService = inject(SensoresService);
+  private dialogRef = inject(MatDialog);
 
-  constructor(private dialogRef: MatDialog) {}
+  ngOnInit(): void {
+    this.buscarSensores();
+  }
 
-  post(): void {}
+  private buscarSensores(): void {
+    this.sensoresService.obtenerSensores().subscribe(
+      (data) => {
+        console.log(data);
+        this.sensores = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
-  openForm(): void {
-    this.dialogRef.open(FormularioSensoresComponent, {
+  public eliminar(id: number) {
+    Swal.fire({
+      icon: 'question',
+      title: 'Atencion',
+      text: '¿Seguro que desea eliminar la configuracion?',
+      showCancelButton: true,
+      confirmButtonText: 'Si eliminar',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.sensoresService.eliminarSensorConfigurado(id).subscribe(
+          (data) => {
+            console.log('Valiendo verga 1');
+            console.log(data);
+            this.sensores = this.sensores.filter((s) => s.id !== id);
+          },
+          (error) => {
+            console.log('Valiendo verga 2');
+            console.log(error);
+          }
+        );
+      }
+      Swal.close();
+    });
+  }
+
+  public openForm(): void {
+    const dialog = this.dialogRef.open(FormularioSensoresComponent, {
       width: '1000px',
-      hasBackdrop: false,
-      panelClass: 'custom-dialog',
+    });
+    dialog.afterClosed().subscribe(() => {
+      this.buscarSensores();
     });
   }
 }

@@ -3,6 +3,8 @@ import { Repository } from "typeorm";
 import { Usuario } from "../models/Usuario";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { json } from "stream/consumers";
+import { Roles } from "../models/Roles";
 
 const secretKey: string = "sgcvjwtsecret777";
 
@@ -129,6 +131,11 @@ export class AuthServiceImpl implements AuthService {
     });
     res.status(200).json({ usuarios });
     return;
+  }
+
+  public async getRoles(req:Request, res:Response){
+    let roles = [{name:"admin"}, {name:"guardia"}]
+    res.status(200).json({roles})
   }
 
   private checkData(

@@ -7,15 +7,14 @@
 #include <DallasTemperature.h>
 #include "Server.hpp"
 #include <ArduinoWebsockets.h>
-
 using namespace websockets;
+
 const char* websockets_server_host = "192.168.0.113";
 const uint16_t websockets_server_port = 4000;
 WebsocketsClient client;
-
 unsigned long lastSendTime = 0;
 const unsigned long sendInterval = 2000;
-const unsigned long reconnectInterval = 5000;  // Intervalo de reconexión
+const unsigned long reconnectInterval = 5000;
 unsigned long lastReconnectAttempt = 0;
 
 OneWire ourWire1(5);
@@ -34,11 +33,12 @@ void setup(void) {
   sensor3.begin();
   SPIFFS.begin();
   ConnectWiFi_STA();
-  // InitServer();
+  InitServer();
   client.onMessage(onMessageCallback);
   client.onEvent(onEventsCallback);
   connectWebSocket();
 }
+
 
 void loop(void) {
   client.poll();
@@ -76,16 +76,16 @@ void sendTemperature() {
   JsonArray mediciones = doc.createNestedArray("mediciones");
 
   JsonObject sensor1Data = mediciones.createNestedObject();
-  sensor1Data["sensorName"] = "sensor 1";
+  sensor1Data["basicName"] = "sensor 1";
   sensor1Data["temperature"] = sensor1.getTempCByIndex(0);
 
   JsonObject sensor2Data = mediciones.createNestedObject();
-  sensor2Data["sensorName"] = "sensor 2";
+  sensor2Data["basicName"] = "sensor 2";
   sensor2Data["temperature"] = sensor2.getTempCByIndex(0);
 
 
   JsonObject sensor3Data = mediciones.createNestedObject();
-  sensor3Data["sensorName"] = "sensor 3";
+  sensor3Data["basicName"] = "sensor 3";
   sensor3Data["temperature"] = sensor3.getTempCByIndex(0);
 
 

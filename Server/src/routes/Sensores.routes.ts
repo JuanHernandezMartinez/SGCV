@@ -15,6 +15,8 @@ const authServiceImpl = new AuthServiceImpl(usuariosRepository);
 router.get("/api/sensores",authServiceImpl.verify, (req: Request, res: Response): any => sensoresController.obtenerSensores(req, res)
 );
 
+router.get("/api/sensores/esp",authServiceImpl.verify, (req: Request, res: Response):any => sensoresController.getSensoresFromEsp(req,res) )
+
 router.post("/api/sensores", authServiceImpl.verify, (req: Request, res: Response): any => sensoresController.createSensor(req, res)
 );
 

@@ -13,13 +13,13 @@ export async function obtenerTemperaturas(
 }
 
 export async function obtenerTemperatura(req: Request, res: Response) {
-  let { sensorName } = req.params;
-  console.log(sensorName);
-  if (!sensorName || sensorName === "") {
+  let { basicName } = req.params;
+  console.log(basicName);
+  if (!basicName || basicName === "") {
     res.status(400).json({ message: "Hace falta el nombre del sensor" });
     return;
   }
-  let temperaturas = await temperatureRepository.findBy({ sensorName });
+  let temperaturas = await temperatureRepository.findBy({ basicName });
   console.log(temperaturas);
   res.status(200).json({ data: temperaturas });
   return
