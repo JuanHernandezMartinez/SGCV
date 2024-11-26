@@ -8,10 +8,10 @@ export class Sensor extends BaseEntity {
   sensorName: string;
   @Column()
   basicName:string;
-  @Column()
+  @Column({nullable:true})
   image: string;
   @Column({default:false})
   status: boolean;
-  @Column()
+  @Column({nullable:true})
   area: string;
 }

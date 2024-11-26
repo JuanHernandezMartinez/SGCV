@@ -3,14 +3,14 @@
     <div>
       <mat-form-field>
         <mat-label>Nombre</mat-label>
-        <input matInput [(ngModel)]="sensorName" />
+        <input matInput [(ngModel)]="sensor.sensorName" />
       </mat-form-field>
     </div>
 
     <div class="area">
       <mat-form-field>
         <mat-label>Area</mat-label>
-        <input matInput [(ngModel)]="area" />
+        <input matInput [(ngModel)]="sensor.area" />
       </mat-form-field>
     </div>
 
@@ -29,7 +29,7 @@
     <div class="imagen">
       <mat-form-field>
         <mat-label>Sensor en el invernadero</mat-label>
-        <mat-select [(ngModel)]="basicName">
+        <mat-select [(ngModel)]="sensor.basicName">
           @for (s of sensoresEsp; track $index) {
           <mat-option [value]="s.basicName">{{ s.basicName }}</mat-option>
           }
@@ -40,15 +40,15 @@
     <div>
       <div class="activeselect">
         <label for="active"><h5 style="font-weight: bolder">Activo?</h5></label>
-        <p-inputSwitch id="active" [(ngModel)]="status" />
+        <p-inputSwitch id="active" [(ngModel)]="sensor.status" />
       </div>
     </div>
 
     <div class="saveButton">
       <p-button
-        severity="success"
-        label="Guardar"
-        (onClick)="registrarSensor()"
+        [severity]="sensor.id ? 'primary':'success'"
+        [label]="sensor.id ? 'Guardar cambios':'Guardar'"
+        (onClick)="sensor.id ? editarSensor() :registrarSensor()"
       />
     </div>
   </div>

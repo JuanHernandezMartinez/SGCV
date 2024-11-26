@@ -11,7 +11,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateSensorDTO } from '../../models/CreateSensor.dto';
 import Swal from 'sweetalert2';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Sensor } from '../../models/Sensor';
 
 @Component({
   selector: 'app-formulario-sensores',
@@ -35,16 +36,22 @@ export class FormularioSensoresComponent implements OnInit {
   @ViewChild('selectImage') public selectImage: any;
   private sensoresService = inject(SensoresService);
   private dialogRef = inject(MatDialogRef<FormularioSensoresComponent>);
+  private data: Sensor = inject(MAT_DIALOG_DATA);
   sensorName: string;
   basicName: string;
   imageFile: File;
   image: string = 'algo';
   status: boolean;
   area: string;
+  sensor: Sensor = new Sensor();
 
   sensoresEsp: { basicName: string }[] = [];
 
   ngOnInit(): void {
+    if (this.data?.id) {
+      console.log(this.data);
+      this.sensor = this.data;
+    }
     this.buscarSensoresEsp();
   }
 
@@ -58,16 +65,31 @@ export class FormularioSensoresComponent implements OnInit {
       }
     );
   }
+  editarSensor(): void {
+    this.sensoresService.editarSensor(this.sensor).subscribe(
+      (data) => {
+        console.log(data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Exito',
+          text: 'Cambios guardados.',
+        }).then(() => {
+          this.dialogRef.close();
+        });
+      },
+      (error) => {
+        console.log(error);
+        Swal.fire({
+          icon: 'info',
+          title: 'Algo salio mal',
+          text: `${error.error.message}`,
+        });
+      }
+    );
+  }
 
   registrarSensor(): void {
-    let sensorDto = new CreateSensorDTO();
-    sensorDto.sensorName = this.sensorName;
-    sensorDto.basicName = this.basicName;
-    sensorDto.area = this.area;
-    sensorDto.image = this.image;
-    sensorDto.status = this.status;
-
-    this.sensoresService.registrarSensor(sensorDto).subscribe(
+    this.sensoresService.registrarSensor(this.sensor).subscribe(
       (data) => {
         console.log(data);
         Swal.fire({

@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormularioSensoresComponent } from '../formulario-sensores/formulario-sensores.component';
+import { MatTableModule } from '@angular/material/table';
 import { SensoresService } from '../../services/sensores.service';
 import { Sensor } from '../../models/Sensor';
 import Swal from 'sweetalert2';
@@ -18,12 +19,14 @@ import Swal from 'sweetalert2';
     ButtonModule,
     RouterModule,
     MatDialogModule,
+    MatTableModule,
   ],
   templateUrl: './sensores-configuration.component.html',
   styleUrl: './sensores-configuration.component.css',
 })
 export class SensoresConfigurationComponent implements OnInit {
   sensores: Sensor[] = [];
+  displayedColumns = ['ID', 'Nombre sensor', 'Nombre en esp32', 'Acciones'];
   private sensoresService = inject(SensoresService);
   private dialogRef = inject(MatDialog);
 
@@ -41,6 +44,25 @@ export class SensoresConfigurationComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  public crear(): void {
+    const dialog = this.dialogRef.open(FormularioSensoresComponent, {
+      width: '1000px',
+    });
+    dialog.afterClosed().subscribe(() => {
+      this.buscarSensores();
+    });
+  }
+
+  public editar(sensor:Sensor):void{
+    const dialog = this.dialogRef.open(FormularioSensoresComponent, {
+      width: '1000px',
+      data:sensor
+    });
+    dialog.afterClosed().subscribe(() => {
+      this.buscarSensores();
+    });
   }
 
   public eliminar(id: number) {
@@ -66,15 +88,6 @@ export class SensoresConfigurationComponent implements OnInit {
         );
       }
       Swal.close();
-    });
-  }
-
-  public openForm(): void {
-    const dialog = this.dialogRef.open(FormularioSensoresComponent, {
-      width: '1000px',
-    });
-    dialog.afterClosed().subscribe(() => {
-      this.buscarSensores();
     });
   }
 }

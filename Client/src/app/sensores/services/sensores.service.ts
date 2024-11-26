@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
+import { Sensor } from '../models/Sensor';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,11 @@ export class SensoresService {
     return this.http.post<any>(`${this.url}/sensores`, sensor);
   }
 
-  public eliminarSensorConfigurado(id:number):Observable<any>{
-    return this.http.delete<any>(`${this.url}/sensores/${id}`)
+  public editarSensor(sensor: Sensor): Observable<any> {
+    return this.http.put(`${this.url}/sensores/${sensor.id}`, sensor);
+  }
+
+  public eliminarSensorConfigurado(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.url}/sensores/${id}`);
   }
 }

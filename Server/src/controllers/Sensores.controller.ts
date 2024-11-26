@@ -57,6 +57,10 @@ export class SensoresControllerImpl implements SensoresController {
     let { id } = req.params;
     let sensorData: SensorDTO = req.body;
 
+    if (!id) {
+      return res.status(400).json({ message: "Faltan datos" });
+    }
+
     if (!this.checkSensorDto(sensorData)) {
       return res.status(400).json({ message: "Faltan datos" });
     }
@@ -65,8 +69,11 @@ export class SensoresControllerImpl implements SensoresController {
       { id: parseInt(id) },
       sensorData
     );
-    console.log("resultado del query: ", query);
-    return res.send(sensorData);
+
+    console.log("resultado del query: ");
+    return res.send(
+      await this.sensorRepository.findOneBy({ id: parseInt(id) })
+    );
   }
 
   public async deleteSensor(req: Request, res: Response) {
@@ -77,9 +84,9 @@ export class SensoresControllerImpl implements SensoresController {
     console.log("Sensor encontrado para eliminar:", findSensror);
     if (findSensror) {
       await this.sensorRepository.delete({ id: parseInt(id) });
-      return res.status(200).json({message:"Sensor eliminado"});
+      return res.status(200).json({ message: "Sensor eliminado" });
     }
-    return res.status(404).json({message:"Sensor no encontrado"});
+    return res.status(404).json({ message: "Sensor no encontrado" });
   }
 
   public async getSensoresFromEsp(_req: Request, res: Response): Promise<any> {
@@ -102,7 +109,7 @@ export class SensoresControllerImpl implements SensoresController {
       { basicName: "sensor4" },
     ];
 
-    let exist = await this.sensorRepository.find({select:["basicName"]});
+    let exist = await this.sensorRepository.find({ select: ["basicName"] });
     exist.forEach((s) => {
       data = data.filter((d) => {
         return d.basicName !== s.basicName;
