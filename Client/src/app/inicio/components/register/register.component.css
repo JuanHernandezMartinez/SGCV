@@ -1,6 +1,6 @@
 .overlay {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.7);
+  background: #0000005f;
   display: flex;
   width: 100%;
 }
@@ -97,4 +97,60 @@
 
 .user-form {
   animation: fadeIn 0.3s ease-in-out;
+}
+
+.userCard {
+  background-color: #ffffff; /* Fondo blanco para destacar */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px; /* Ancho máximo para mantenerlo compacto */
+  font-family: 'Arial', sans-serif; /* Tipografía moderna */
+  text-align: center;
+}
+
+.userCard h1 {
+  color: #333333; /* Título en gris oscuro */
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.userCard div {
+  background-color: #f9f9f9; /* Fondo gris claro para destacar cada usuario */
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: left; /* Alinear el texto */
+}
+
+.userCard div p {
+  font-size: 18px;
+  color: #444444;
+  margin: 5px 0;
+}
+
+.userCard div span {
+  font-size: 16px;
+  color: #777777; /* Un gris más claro para el rol */
+}
+
+@media (max-width: 600px) {
+  .userCard {
+    padding: 15px;
+    margin: 15px;
+    max-width: 100%; /* Ajustar al ancho de la pantalla */
+  }
+
+  .userCard h1 {
+    font-size: 20px;
+  }
+
+  .userCard div p {
+    font-size: 16px;
+  }
+
+  .userCard div span {
+    font-size: 14px;
+  }
 }
