@@ -8,6 +8,6 @@ const router: Router = Router();
 const usuariosRepository = AppDataSource.getRepository(Usuario);
 const authServiceImpl = new AuthServiceImpl(usuariosRepository);
 
-router.post("/api/ventilacion/turn", authServiceImpl.verify, encenderVentilador );
+router.post("/api/ventilacion/turn/:sensorId", authServiceImpl.verify, encenderVentilador );
 
 export default router;

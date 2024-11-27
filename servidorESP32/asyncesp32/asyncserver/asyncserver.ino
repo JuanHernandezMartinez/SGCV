@@ -98,11 +98,10 @@ void sendTemperature() {
 
   String message = String(jsonMessage);
   client.send(message);
-  Serial.println("Temperaturas enviadas: " + message);
+  Serial0.println("Temperatura enviada");
 }
 
 void onMessageCallback(WebsocketsMessage message) {
-  Serial.println("Mensaje recibido");
 }
 
 void onEventsCallback(WebsocketsEvent event, String data) {

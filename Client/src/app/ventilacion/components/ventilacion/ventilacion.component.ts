@@ -23,8 +23,8 @@ import { VentilacionService } from '../../services/ventilacion.service';
 export class VentilacionComponent {
   ventiladores = ['ventilador 1', 'ventilador 2', 'ventilador 3'];
   ventilacionService = inject(VentilacionService);
-  public post(): void {
-    this.ventilacionService.turnFan().subscribe((data) => {
+  public post(ventiladorId:number): void {
+    this.ventilacionService.turnFan(ventiladorId).subscribe((data) => {
       console.log(data);
     });
   }

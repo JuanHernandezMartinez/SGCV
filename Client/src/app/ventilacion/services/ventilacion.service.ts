@@ -18,7 +18,7 @@ export class VentilacionService {
     return this.http.get(`${this.url}/sensors/${id}`);
   }
 
-  public turnFan(): Observable<void> {
-    return this.http.post<void>(`${this.url}/ventilacion/turn`, {});
+  public turnFan(ventiladorId:number): Observable<any> {
+    return this.http.post<any>(`${this.url}/ventilacion/turn/${ventiladorId}`, {});
   }
 }

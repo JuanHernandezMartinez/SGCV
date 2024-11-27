@@ -1,6 +1,12 @@
-const char* ssid = "T101-V";
-const char* password = "609FB83801D16";
+//MI CASA
+const char* ssid = "ARRIS-123 213";
+const char* password = "12345678";
 const char* hostname = "ESP32_1";
+
+//CUATE
+//const char* ssid = "T101-V";
+//const char* password = "609FB83801D16";
+//const char* hostname = "ESP32_1";
 
 IPAddress ip(192, 168, 0, 150);
 IPAddress gateway(192, 168, 0, 1);
