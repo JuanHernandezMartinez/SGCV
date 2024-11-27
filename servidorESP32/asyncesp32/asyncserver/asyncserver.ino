@@ -28,6 +28,10 @@ DallasTemperature sensor3(&ourWire3);
 
 void setup(void) {
   Serial.begin(115200);
+  pinMode(2, OUTPUT);
+  digitalWrite(2, LOW);
+  pinMode(4, OUTPUT);
+  digitalWrite(4, LOW);
   sensor1.begin();
   sensor2.begin();
   sensor3.begin();
