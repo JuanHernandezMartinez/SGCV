@@ -1,39 +1,29 @@
+<div class="Boton-volver">
+  <app-volver-button></app-volver-button>
+</div>
 <div class="root">
-  <div class="Boton-volver">
-    <app-volver-button></app-volver-button>
-  </div>
 
-  <div class="Buscador-ventilacion">
-    <mat-form-field class="example-full-width">
-      <mat-label>Buscar ventilación</mat-label>
-      <input matInput placeholder="ventilador" />
-    </mat-form-field>
-  </div>
-
-  <div class="Menu-1">
+  <div class="content" style="">
     <div class="container-back" style="padding: 3%">
       <div class="container">
-        <p><strong>Sección/Lugar</strong></p>
-        <p><strong>Apagado - Encendido</strong></p>
+        <p><strong>Apagar y encender</strong></p>
       </div>
     </div>
-
-    <div class="container-ventilador">
-      @for (item of ventiladores; track $index) {
-      <mat-card class="ventilador-card" style="margin-bottom: 10px">
-        <div
-          class="ventilador"
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          "
-        >
-          <p>{{ item }}</p>
-          <p-inputSwitch (onChange)="post(2)"></p-inputSwitch>
-        </div>
-      </mat-card>
-      }
-    </div>
+    @for (item of ventiladores; track $index) {
+    <mat-card class="ventilador-card" style="margin-bottom: 10px">
+      <div
+        class="ventilador"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <p>{{ item }}</p>
+        <p-inputSwitch (onChange)="turn($index+1)"></p-inputSwitch>
+      </div>
+    </mat-card>
+    }
   </div>
+
 </div>

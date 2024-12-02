@@ -16,11 +16,28 @@ struct Sensor {
   bool powered;
 };
 
-Sensor s1 = { 2, false };
+Sensor s1 = { 17, false };
 Sensor s2 = { 4, false };
 
 AsyncWebServer server(80);
 void InitServer() {
+
+  server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request) {
+    DynamicJsonDocument doc(256);
+    JsonArray status = doc.createNestedArray("status");
+
+    JsonObject sensor1Data = status.createNestedObject();
+    sensor1Data["pin"] = s1.pin;
+    sensor1Data["powered"] = s1.powered;
+
+    JsonObject sensor2Data = status.createNestedObject();
+    sensor2Data["pin"] = s2.pin;
+    sensor2Data["powered"] = s2.powered;
+
+    String jsonMessage;
+    serializeJson(doc, jsonMessage);
+    return request->send(200, "application/json", jsonMessage);
+  });
 
   server.on(
     "/turno", HTTP_GET, [](AsyncWebServerRequest *request) {

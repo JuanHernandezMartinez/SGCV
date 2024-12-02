@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { VolverButtonComponent } from '../../../shared/components/volver-button/volver-button.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,10 +20,23 @@ import { VentilacionService } from '../../services/ventilacion.service';
   templateUrl: './ventilacion.component.html',
   styleUrl: './ventilacion.component.css',
 })
-export class VentilacionComponent {
-  ventiladores = ['ventilador 1', 'ventilador 2', 'ventilador 3'];
+export class VentilacionComponent implements OnInit {
+  ventiladores = ['ventilador 1', 'ventilador 2'];
   ventilacionService = inject(VentilacionService);
-  public post(ventiladorId:number): void {
+
+  ngOnInit(): void {
+    // this.checkStatus();
+  }
+
+  private checkStatus(): void {
+    this.ventilacionService.checkFansStatus().subscribe((data) => {
+      console.log(data);
+    });
+  }
+
+  public turn(ventiladorId: number): void {
+    console.log(ventiladorId);
+    return;
     this.ventilacionService.turnFan(ventiladorId).subscribe((data) => {
       console.log(data);
     });

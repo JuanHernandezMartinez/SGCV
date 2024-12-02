@@ -10,6 +10,10 @@ export class VentilacionService {
   private url = environment.BASE_ENDPOINT;
   constructor(private http: HttpClient) {}
 
+  public checkFansStatus():Observable<any>{
+    return this.http.get(`${this.url}/ventilacion/status`)
+  }
+
   public getFans(): Observable<any> {
     return this.http.get(`${this.url}/sensors`);
   }

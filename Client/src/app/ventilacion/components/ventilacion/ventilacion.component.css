@@ -1,21 +1,16 @@
 .root {
   background-color: #d9d9d9;
-  height: 100vh;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
+  min-width: 100vw;
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url("../../../../../public/assets/Background.jpg");
 }
 
 .Boton-volver {
-  float: right;
-  padding: 5% 5% 0 0; 
-}
-
-.Buscador-ventilacion {
-  padding: 5% 0 0 5%; 
+  position: fixed;
+  top: 5%; 
+  right: 5%;
 }
 
 .Menu-1 {
@@ -25,14 +20,6 @@
   background-color: #f5f5f5; 
   border-radius: 10px; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.397); 
-  margin: 3% 5% 0 5%;
-}
-
-@media (max-width:800px){
-  .Menu-1 {
-    margin: 5% 0% 0 0%;
-    border-radius: 0px;
-  }
 }
 
 .container-back {
@@ -44,14 +31,25 @@
 }
 
 .container {
-  display: flex;
-  justify-content: space-between; 
+  text-align: center;
   font-size: 16px;
   color: #333; 
 }
 
 .container p {
   margin: 0;
+}
+
+.content{
+  width: 60%;
+  background-color: whitesmoke; padding: 20px; border-radius: 20px;
+}
+
+@media (max-width:1024px) {
+  .content{
+    width: 80%;
+  }
+  
 }
 
 .ventilador-card {
@@ -73,4 +71,6 @@
 
 .ventilador p {
   margin: 0;
+  font-size: large;
+  font-weight: 500;
 }
