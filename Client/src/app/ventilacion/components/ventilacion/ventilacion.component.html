@@ -1,29 +1,31 @@
 <div class="Boton-volver">
   <app-volver-button></app-volver-button>
 </div>
-<div class="root">
 
-  <div class="content" style="">
-    <div class="container-back" style="padding: 3%">
-      <div class="container">
-        <p><strong>Apagar y encender</strong></p>
+<div class="root">
+  <div class="content">
+    <div class="container1">
+      <div class="container-back" style="padding: 3%">
+        <div class="container">
+          <p><strong>Apagar y encender</strong></p>
+        </div>
       </div>
+      @for (item of ventiladores; track $index) {
+      <mat-card class="ventilador-card" style="margin-bottom: 10px">
+        <div
+          class="ventilador"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <p>{{ item }}</p>
+          <p-inputSwitch (onChange)="turn($index+1)"></p-inputSwitch>
+        </div>
+      </mat-card>
+      }
     </div>
-    @for (item of ventiladores; track $index) {
-    <mat-card class="ventilador-card" style="margin-bottom: 10px">
-      <div
-        class="ventilador"
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        "
-      >
-        <p>{{ item }}</p>
-        <p-inputSwitch (onChange)="turn($index+1)"></p-inputSwitch>
-      </div>
-    </mat-card>
-    }
   </div>
 
 </div>

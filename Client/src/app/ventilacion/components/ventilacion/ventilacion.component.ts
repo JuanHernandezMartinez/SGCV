@@ -21,7 +21,7 @@ import { VentilacionService } from '../../services/ventilacion.service';
   styleUrl: './ventilacion.component.css',
 })
 export class VentilacionComponent implements OnInit {
-  ventiladores = ['ventilador 1', 'ventilador 2'];
+  ventiladores = ['Ventilador 1', 'Ventilador 2'];
   ventilacionService = inject(VentilacionService);
 
   ngOnInit(): void {
