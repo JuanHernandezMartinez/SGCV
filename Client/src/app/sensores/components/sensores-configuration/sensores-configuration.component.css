@@ -19,3 +19,11 @@
   right: 10%;
   bottom: 10%;
 }
+
+.container-ventilador {
+  width: 90vw;
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  padding-top: 5%;
+}

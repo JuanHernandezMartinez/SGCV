@@ -3,6 +3,7 @@
     <p-button label="Volver" severity="contrast" routerLink="/sensores" />
   </div>
 
+ <div>
   <div class="container-ventilador">
     <table mat-table [dataSource]="sensores" class="mat-elevation-z8">
       <!--- Note that these columns can be defined in any order.
@@ -42,6 +43,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
+ </div>
 
   <div class="boton-add">
     <p-button label="+ Añadir sensor" severity="info" (onClick)="crear()" />
