@@ -21,24 +21,32 @@ import { VentilacionService } from '../../services/ventilacion.service';
   styleUrl: './ventilacion.component.css',
 })
 export class VentilacionComponent implements OnInit {
-  ventiladores = ['Ventilador 1', 'Ventilador 2'];
-  ventilacionService = inject(VentilacionService);
+  public ventiladores = [{ name: 'Ventilador 1', pin: 17, powered: true }, { name: 'Ventilador 2', pin: 4, powered: true }];
+  private ventilacionService = inject(VentilacionService);
 
   ngOnInit(): void {
-    // this.checkStatus();
+    this.checkStatus();
   }
 
   private checkStatus(): void {
-    this.ventilacionService.checkFansStatus().subscribe((data) => {
+    this.ventilacionService.checkFansStatus().subscribe((info) => {
+      let data : { pin: number, powered: boolean }[] = info.status
       console.log(data);
+      this.ventiladores.forEach((v) => {
+        data.forEach((d) => {
+          if (v.pin === d.pin) {
+            v.powered = !d.powered
+          }
+        })
+      })
     });
   }
 
   public turn(ventiladorId: number): void {
     console.log(ventiladorId);
-    return;
     this.ventilacionService.turnFan(ventiladorId).subscribe((data) => {
       console.log(data);
+      this.checkStatus();
     });
   }
 }

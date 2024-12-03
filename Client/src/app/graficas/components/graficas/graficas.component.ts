@@ -8,7 +8,7 @@ import { GraficasService } from '../../services/graficas.service';
   styleUrls: ['./graficas.component.css'],
 })
 export class GraficasComponent implements OnInit {
-  // graficasSocketService = inject(GraficasSocketService);
+  graficasSocketService = inject(GraficasSocketService);
   private graficasService = inject(GraficasService);
   originalMulti: any[] = [];
   filteredMulti: any[] = [];

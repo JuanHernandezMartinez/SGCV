@@ -9,7 +9,7 @@
 #include <ArduinoWebsockets.h>
 using namespace websockets;
 
-const char* websockets_server_host = "192.168.0.113";
+const char* websockets_server_host = "192.168.1.109";
 const uint16_t websockets_server_port = 4000;
 WebsocketsClient client;
 unsigned long lastSendTime = 0;
@@ -28,10 +28,13 @@ DallasTemperature sensor3(&ourWire3);
 
 void setup(void) {
   Serial.begin(115200);
+
+  // Configuración inicial de pines
   pinMode(17, OUTPUT);
-  digitalWrite(17, LOW);
   pinMode(4, OUTPUT);
-  digitalWrite(4, LOW);
+  digitalWrite(17,1);
+  digitalWrite(4,1);
+
   sensor1.begin();
   sensor2.begin();
   sensor3.begin();
@@ -98,7 +101,7 @@ void sendTemperature() {
 
   String message = String(jsonMessage);
   client.send(message);
-  Serial0.println("Temperatura enviada");
+  // Serial0.println("Temperatura enviada");
 }
 
 void onMessageCallback(WebsocketsMessage message) {

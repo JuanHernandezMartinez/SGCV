@@ -20,8 +20,8 @@
             align-items: center;
           "
         >
-          <p>{{ item }}</p>
-          <p-inputSwitch (onChange)="turn($index+1)"></p-inputSwitch>
+          <p>{{ item.name }}</p>
+          <p-inputSwitch [(ngModel)]="item.powered" (onChange)="turn($index+1)"></p-inputSwitch>
         </div>
       </mat-card>
       }
