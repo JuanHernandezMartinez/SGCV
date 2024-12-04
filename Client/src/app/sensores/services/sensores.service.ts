@@ -15,6 +15,10 @@ export class SensoresService {
     return this.http.get<any>(`${this.url}/sensores`);
   }
 
+  public obtenerSensorPorBasicName(basicName:string):Observable<any>{
+    return this.http.get(`${this.url}/sensores/buscar/${basicName}`)
+  }
+
   public consultarSensoresEsp(): Observable<any> {
     return this.http.get<any>(`${this.url}/sensores/esp`);
   }

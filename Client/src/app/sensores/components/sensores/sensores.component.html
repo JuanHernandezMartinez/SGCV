@@ -29,7 +29,7 @@
       </h2>
     </div>
     @for (sensor of sensores; track $index) {
-    <app-sensores-card class="sensor-card" [sensor]="sensor" />
+    <app-sensores-card class="sensor-card" [data]="sensor" />
     }
   </div>
 </div>

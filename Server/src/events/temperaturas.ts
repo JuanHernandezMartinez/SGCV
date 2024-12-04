@@ -12,7 +12,6 @@ export async function setupSocket(wss: WebSocketServer) {
     ws.on("message", async function message(data) {
       const text = data.toString(); // Convertimos el Buffer a texto
       let parseJson = JSON.parse(text);
-      console.log(parseJson)
       try {
         parseJson.mediciones.forEach((m:Medicion)=>{
           medicionRepository.save(m)

@@ -18,7 +18,8 @@ interface SensoresController {
 
 export class SensoresControllerImpl implements SensoresController {
   private esp32_url = process.env.ESP32_URL || "http://192.168.0.150";
-  private sensorRepository: Repository<Sensor> = AppDataSource.getRepository(Sensor);
+  private sensorRepository: Repository<Sensor> =
+    AppDataSource.getRepository(Sensor);
 
   public async obtenerSensores(
     _req: Request,
@@ -27,6 +28,14 @@ export class SensoresControllerImpl implements SensoresController {
     console.log("Obteniendo Sensores");
     let sensors: Sensor[] = await this.sensorRepository.find();
     return res.send(sensors);
+  }
+
+  public async obtenerSensoresPorBasicName(req: Request, res: Response) {
+    let { basicName } = req.params;
+    console.log(basicName);
+    let sensor = await this.sensorRepository.findOne({ where: { basicName } });
+    console.log(sensor);
+    res.status(200).json({ sensor });
   }
 
   public async createSensor(req: Request, res: Response) {
@@ -110,6 +119,7 @@ export class SensoresControllerImpl implements SensoresController {
     ];
 
     let exist = await this.sensorRepository.find({ select: ["basicName"] });
+    console.log("existencias: ", exist)
     exist.forEach((s) => {
       data = data.filter((d) => {
         return d.basicName !== s.basicName;
