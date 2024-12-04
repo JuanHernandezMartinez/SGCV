@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { GraficasService } from '../../services/graficas.service';
-import { Medicion } from '../../../models/Medicion';
 @Component({
   selector: 'app-graficas',
   templateUrl: './graficas.component.html',
@@ -15,7 +14,7 @@ export class GraficasComponent implements OnInit {
   legend: boolean = true;
   showLabels: boolean = true;
   animations: boolean = true;
-  xAxis: boolean = false;
+  xAxis: boolean = true;
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
@@ -23,27 +22,34 @@ export class GraficasComponent implements OnInit {
   yAxisLabel: string = 'Temperatura';
   timeline: boolean = true;
   colorScheme: any = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
+    domain: ['red', 'blue', 'green', '#7aa3e5', '#a8385d', '#aae3f5'],
   };
 
   ngOnInit(): void {
     this.graficasService.obtenerTemperaturas().subscribe(({ data }) => {
-      let multiAdapterList: MultiAdapter[] = [];
-
+      const multiAdapterList: MultiAdapter[] = [];
+      console.log(data);
       data.forEach((m: any) => {
-        let multiAdapter: MultiAdapter = new MultiAdapter();
-        let seriesAdapter: SeriesAdapter = new SeriesAdapter();
+        console.log(m);
+        const multiAdapter: MultiAdapter = new MultiAdapter();
         multiAdapter.series = [];
         multiAdapter.name = m.basicName;
-        m.json_agg.forEach((serie: any) => {
-          seriesAdapter.name = serie.fecha;
+
+        m.data.forEach((serie: any) => {
+          // Crear una nueva instancia de SeriesAdapter para cada serie
+          const seriesAdapter: SeriesAdapter = new SeriesAdapter();
+          seriesAdapter.name = `${serie.year}y-${serie.month}m-${serie.day}d-${serie.hour}h-${serie.minute}min`;
           seriesAdapter.value = serie.temperature;
+
+          multiAdapter.series.push(seriesAdapter);
         });
-        multiAdapter.series.push(seriesAdapter);
+
         multiAdapterList.push(multiAdapter);
       });
+
       this.multi = multiAdapterList;
       this.originalMulti = multiAdapterList;
+
       console.log(this.multi);
     });
   }
@@ -62,12 +68,10 @@ export class GraficasComponent implements OnInit {
 
   onActivate(data: any): void {
     // console.log('Activate', JSON.parse(JSON.stringify(data)));
-    console.log('activando');
   }
 
   onDeactivate(data: any): void {
     // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-    console.log('desactivando');
   }
 }
 

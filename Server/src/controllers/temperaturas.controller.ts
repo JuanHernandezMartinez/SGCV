@@ -11,7 +11,23 @@ export async function obtenerTemperaturas(
   const data = await temperatureRepository
     .createQueryBuilder("medicion")
     .select("medicion.basicName", "basicName")
-    .addSelect("JSON_AGG(JSON_BUILD_OBJECT('temperature', medicion.temperature, 'fecha', medicion.fecha))",)
+    .addSelect(
+      `JSON_AGG(
+        JSON_BUILD_OBJECT(
+          'temperature', medicion.temperature,
+          'fecha', medicion.fecha,
+          'year', EXTRACT(YEAR FROM medicion.fecha),
+          'month', EXTRACT(MONTH FROM medicion.fecha),
+          'day', EXTRACT(DAY FROM medicion.fecha),
+          'hour', EXTRACT (HOUR FROM medicion.fecha),
+          'minute', EXTRACT (MINUTE FROM medicion.fecha),
+          'second', EXTRACT (SECOND FROM medicion.fecha)
+
+        )
+      )`,
+      "data"
+    )
+    .where("DATE(medicion.fecha) = CURRENT_DATE")
     .groupBy("medicion.basicName")
     .getRawMany();
 
