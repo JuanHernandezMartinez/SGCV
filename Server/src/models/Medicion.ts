@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("mediciones")
 export class Medicion {
@@ -8,4 +8,6 @@ export class Medicion {
   basicName: string;
   @Column("decimal", { precision: 10, scale: 2 })
   temperature: number;
+  @CreateDateColumn({ type: "timestamp" })
+  fecha: Date;
 }

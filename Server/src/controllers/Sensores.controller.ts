@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Sensor } from "../models/Sensor";
 import { Repository } from "typeorm";
 import { SensorDTO } from "../models/DTO/Sensor.dto";
+import { AppDataSource } from "../psqlDB";
 
 interface SensoresController {
   obtenerSensores(req: Request, res: Response): Promise<Response<any>>;
@@ -17,8 +18,7 @@ interface SensoresController {
 
 export class SensoresControllerImpl implements SensoresController {
   private esp32_url = process.env.ESP32_URL || "http://192.168.0.150";
-
-  constructor(private sensorRepository: Repository<Sensor>) {}
+  private sensorRepository: Repository<Sensor> = AppDataSource.getRepository(Sensor);
 
   public async obtenerSensores(
     _req: Request,

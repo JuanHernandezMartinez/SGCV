@@ -5,14 +5,20 @@ import { Medicion } from "../models/Medicion";
 const temperatureRepository = AppDataSource.getRepository(Medicion);
 
 export async function obtenerTemperaturas(
-  req: Request,
+  _req: Request,
   res: Response
 ): Promise<void> {
-  let temperaturas = await temperatureRepository.find();
-  res.status(200).json({ data: temperaturas });
+  const data = await temperatureRepository
+    .createQueryBuilder("medicion")
+    .select("medicion.basicName", "basicName")
+    .addSelect("JSON_AGG(JSON_BUILD_OBJECT('temperature', medicion.temperature, 'fecha', medicion.fecha))",)
+    .groupBy("medicion.basicName")
+    .getRawMany();
+
+  res.status(200).json({ data });
 }
 
-export async function obtenerTemperatura(req: Request, res: Response) {
+export async function obtenerTemperaturaPorSensor(req: Request, res: Response) {
   let { basicName } = req.params;
   console.log(basicName);
   if (!basicName || basicName === "") {
@@ -22,5 +28,5 @@ export async function obtenerTemperatura(req: Request, res: Response) {
   let temperaturas = await temperatureRepository.findBy({ basicName });
   console.log(temperaturas);
   res.status(200).json({ data: temperaturas });
-  return
+  return;
 }

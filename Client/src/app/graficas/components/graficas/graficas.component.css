@@ -2,8 +2,7 @@
   padding: 2%;
   display: grid;
   grid-template-columns: 100%;
-    width: 100%;
+    min-width: 100%;
     min-height: 100vh;
-    background-size: cover;
-    background-image: url("../../../../../public/assets/Background.jpg");
+    background-color: #727272;
 }

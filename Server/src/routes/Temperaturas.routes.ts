@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  obtenerTemperatura,
+  obtenerTemperaturaPorSensor,
   obtenerTemperaturas,
 } from "../controllers/temperaturas.controller";
 import { AuthServiceImpl } from "../auth/auth.controller";
@@ -12,10 +12,6 @@ const usuariosRepository = AppDataSource.getRepository(Usuario);
 const authServiceImpl = new AuthServiceImpl(usuariosRepository);
 
 router.get("/api/temperaturas", authServiceImpl.verify, obtenerTemperaturas);
-router.get(
-  "/api/temperaturas/:sensorName",
-  authServiceImpl.verify,
-  obtenerTemperatura
-);
+router.get("/api/temperaturas/:sensorName", authServiceImpl.verify, obtenerTemperaturaPorSensor);
 
 export default router;

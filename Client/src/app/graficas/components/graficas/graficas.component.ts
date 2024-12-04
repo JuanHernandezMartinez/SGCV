@@ -1,18 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
-// import { multi } from './data';
-import { GraficasSocketService } from '../../services/graficas-socket.service';
 import { GraficasService } from '../../services/graficas.service';
+import { Medicion } from '../../../models/Medicion';
 @Component({
   selector: 'app-graficas',
   templateUrl: './graficas.component.html',
   styleUrls: ['./graficas.component.css'],
 })
 export class GraficasComponent implements OnInit {
-  graficasSocketService = inject(GraficasSocketService);
   private graficasService = inject(GraficasService);
   originalMulti: any[] = [];
   filteredMulti: any[] = [];
-  multi: any[] = [];
+  multi: MultiAdapter[] = [];
   view: [number, number] = [1200, 500];
   legend: boolean = true;
   showLabels: boolean = true;
@@ -28,32 +26,26 @@ export class GraficasComponent implements OnInit {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
   };
 
-  constructor() {}
-
   ngOnInit(): void {
-    // this.graficasSocketService.subscribeTemperatures((message: any[]) => {
-    //   this.originalMulti = message;
-    //   this.multi = message;
-    // });
-    this.graficasService.obtenerTemperaturas().subscribe(
-      (event) => {
-        // console.log(event.data);
-        // event.data.forEach(
-        //   (event: { sensorName: string; temperature: number }) => {
-        //     let serie = { name: Date().toString(), value: event.temperature };
-        //     let adapter = new EventAdapter();
-        //     adapter.name = event.sensorName;
-        //     adapter.series?.push(serie);
-        //     this.originalMulti.push(adapter);
-        //   }
-        // );
-        // this.originalMulti = event.data;
-        // this.multi = event.data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.graficasService.obtenerTemperaturas().subscribe(({ data }) => {
+      let multiAdapterList: MultiAdapter[] = [];
+
+      data.forEach((m: any) => {
+        let multiAdapter: MultiAdapter = new MultiAdapter();
+        let seriesAdapter: SeriesAdapter = new SeriesAdapter();
+        multiAdapter.series = [];
+        multiAdapter.name = m.basicName;
+        m.json_agg.forEach((serie: any) => {
+          seriesAdapter.name = serie.fecha;
+          seriesAdapter.value = serie.temperature;
+        });
+        multiAdapter.series.push(seriesAdapter);
+        multiAdapterList.push(multiAdapter);
+      });
+      this.multi = multiAdapterList;
+      this.originalMulti = multiAdapterList;
+      console.log(this.multi);
+    });
   }
 
   deleteFilter(): void {
@@ -79,7 +71,11 @@ export class GraficasComponent implements OnInit {
   }
 }
 
-class EventAdapter {
+class MultiAdapter {
   name: string;
-  series: [{ name: string; value: number }];
+  series: SeriesAdapter[];
+}
+class SeriesAdapter {
+  name: string;
+  value: number;
 }
